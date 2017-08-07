@@ -1,0 +1,41 @@
+@import "base/variables";
+
+// foundation
+@import "base/foundation-settings";
+@import "foundation";
+@include foundation-everything;
+
+// Components
+@import "components/nav";
+@import "components/question";
+
+body {
+  background-color: $light-grey;
+}
+.header {
+  background-color: red;
+}
+
+.form {
+  display: flex;
+  justify-content: space-between;
+}
+
+.picture{
+  height:70px;
+  width: 70px;
+  background-image: url("../img/blank.png");
+  background-size: contain;
+  border-radius: 50px;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.picture-wrapper{
+  width: 15%;
+  float: left;
+
+  .picture{
+    margin-top: 20px;
+  }
+}

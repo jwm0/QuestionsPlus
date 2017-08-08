@@ -11,7 +11,7 @@ export class Question extends React.Component {
           <div className="question-top">
             <div className="picture-wrapper"><div className="picture"></div></div>
             <div className="header-wrapper">
-              <h3>{author} <span className="span-style">IS ASKING:</span></h3>
+              <h3>{author} <span className="span-style">IS ASKING:</span> {score}</h3>
               <Link to="/comments"><h3 style={{'margin':'0;font-style:italic'}}>{title}</h3></Link>
             </div>
           </div>

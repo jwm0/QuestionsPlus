@@ -1,4 +1,5 @@
 var uuid = require('node-uuid');
+import moment from 'moment';
 
 export var searchQuestionsReducer = (state='', action) =>{
   switch(action.type){
@@ -18,6 +19,15 @@ export var filterReducer = (state='my_shelf', action) =>{
   }
 }
 
+export var sortReducer = (state='recent', action) => {
+  switch(action.type) {
+    case 'SET_SORT':
+      return action.sortBy;
+    default:
+      return state;
+  }
+}
+
 export var questionsReducer = (state=[], action) => {
   switch(action.type){
     case 'ADD_QUESTION':
@@ -31,7 +41,8 @@ export var questionsReducer = (state=[], action) => {
         score: 1,
         peers: 0,
         related: 0,
-        conversations: 0
+        conversations: 0,
+        submitted: moment().unix()
       }
     ];
     case 'ADD_QUESTIONS':

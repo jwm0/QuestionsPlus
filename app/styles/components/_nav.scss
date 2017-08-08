@@ -3,3 +3,27 @@
   display: flex;
   justify-content: space-between;
 }
+
+.nav-container {
+  width: 100%;
+  background-color: #fff;
+}
+
+#logo{
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  display: inline-block;
+  background: $darkblue;
+  color: #fff;
+  font-size: 40px;
+  text-align: center;
+  outline: none;
+  cursor: pointer;
+}
+
+#logo-text{
+  font-size: 35px;
+  margin-right: 2rem;
+}

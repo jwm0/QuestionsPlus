@@ -1,11 +1,12 @@
 import * as redux from 'redux';
-var {searchQuestionsReducer, filterReducer, questionsReducer} = require('reducers');
+var {searchQuestionsReducer, filterReducer, questionsReducer, sortReducer} = require('reducers');
 import thunk from 'redux-thunk';
 
 export var configure = (initialState = {}) => {
   var reducer = redux.combineReducers({
     filter: filterReducer,
     searchText: searchQuestionsReducer,
+    sortBy: sortReducer,
     questions: questionsReducer
   })
   var store = redux.createStore(reducer, initialState, redux.compose(

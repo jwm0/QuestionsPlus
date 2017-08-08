@@ -12,6 +12,13 @@ export var setFilter = (filter) => {
   }
 }
 
+export var setSort = (sortBy) => {
+  return {
+    type: 'SET_SORT',
+    sortBy
+  }
+}
+
 export var addQuestion = (author, title, text) => {
   return {
     type: 'ADD_QUESTION',

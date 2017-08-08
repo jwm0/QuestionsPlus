@@ -26,8 +26,13 @@ export class Nav extends React.Component {
       $('#addQuestionModal').foundation('close');
     }
   }
+  onSortChange () {
+    var {dispatch} = this.props;
+    dispatch(actions.setSort('hot'));
+  }
   render () {
-    var that = this;
+    var {sortBy} = this.props;
+
     var renderAddQuestion = () => {
       return (
         <div className="reveal" id="addQuestionModal" data-reveal>
@@ -45,22 +50,19 @@ export class Nav extends React.Component {
     }
     return(
       <div className="nav-container">
-        <div className="row">
-          <div className="small-centered small-10 columns centered header">
+          <div className="small-centered small-10 large-8 centered header">
             <div className="top-bar">
               <div>
-                <div className="top-bar-left"><Link to="/"><span id="logo-text">QUESTION</span> <div id="logo">+</div></Link></div>
-                <p><button className="button" data-open="addQuestionModal">Click me for a modal</button></p>
+                <div className="top-bar-left"><Link to="/"><span id="logo-text">QUESTIONS</span></Link><div id="logo" data-open="addQuestionModal">+</div></div>
                 <div className="nav-bar">
                   <div><input style={{width:'auto;margin:0'}} name="questions-filter" type="radio" id="my_shelf" required/><label htmlFor="my_shelf">My shelf</label></div>
                   <div><input style={{width:'auto;margin:0'}} name="questions-filter" type="radio" id="all_questions"/><label style={{marginRight:0}} htmlFor="all_questions">All questions</label></div>
-                  <span style={{'wordSpacing':'2px'}}>Sort by: <i style={{'textDecoration':'underline;cursor:pointer'}}>recent</i> or <span style={{color:'#2199E8;cursor:pointer'}}><b>hot</b></span></span>
+                  <span style={{'wordSpacing':'2px'}}>Sort by: <i style={{'textDecoration':'underline;cursor:pointer'}}>recent</i> or <span style={{color:'#2199E8;cursor:pointer'}} onClick={this.onSortChange.bind(this)}><b>hot</b></span></span>
                 </div>
               </div>
             </div>
             <Search/>
           </div>
-        </div>
         {renderAddQuestion()}
       </div>
     )

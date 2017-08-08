@@ -8,12 +8,10 @@
 // Components
 @import "components/nav";
 @import "components/question";
+@import "components/search";
 
 body {
   background-color: $light-grey;
-}
-.header {
-  background-color: red;
 }
 
 .form {

@@ -18,7 +18,7 @@ module.exports = {
 
     return $.isArray(questions) ? questions : [];
   },
-  filterQuestions: function (questions, searchText) {
+  filterQuestions: function (questions, searchText, sortBy) {
     var filteredQuestions = questions;
 
     // Filter by "My shelf" or "All questions"
@@ -32,7 +32,28 @@ module.exports = {
       return searchText.length === 0 || text.indexOf(searchText) > -1;
     });
 
-    // sort by recent or hot
+    //sort by recent or hot
+    if (sortBy == 'recent'){
+      filteredQuestions.sort((a, b) => {
+        if (a.submitted > b.submitted) {
+          return -1;
+        } else if (a.submitted < b.submitted) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+    } else if (sortBy == 'hot') {
+      filteredQuestions.sort((a, b) => {
+        if (a.score < b.score) {
+          return 1;
+        } else if (a.score > b.score) {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
+    }
 
     return filteredQuestions;
   }

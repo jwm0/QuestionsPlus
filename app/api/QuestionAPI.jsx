@@ -13,8 +13,7 @@ module.exports = {
 
     try {
       questions = JSON.parse(stringQuestions);
-    } catch (e) {
-    }
+    } catch (e) {}
 
     return $.isArray(questions) ? questions : [];
   },
@@ -32,7 +31,7 @@ module.exports = {
       return searchText.length === 0 || text.indexOf(searchText) > -1;
     });
 
-    //sort by recent or hot
+    // Sort by recent or hot
     if (sortBy == 'recent'){
       filteredQuestions.sort((a, b) => {
         if (a.submitted > b.submitted) {

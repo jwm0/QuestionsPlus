@@ -39,10 +39,13 @@ export var questionsReducer = (state=[], action) => {
         title: action.title,
         text: action.text,
         score: 1,
-        peers: 0,
         related: 0,
         conversations: 0,
-        submitted: moment().unix()
+        submitted: moment().unix(),
+        peers: {
+          count: 1,
+          id: undefined
+        }
       }
     ];
     case 'ADD_QUESTIONS':
@@ -50,6 +53,23 @@ export var questionsReducer = (state=[], action) => {
         ...state,
         ...action.questions
       ];
+    default:
+      return state;
+  }
+}
+
+export var usersReducer = (state=[], action) => {
+  switch(action.type) {
+    case 'NEW_USER':
+      return [
+        ...state,
+        {
+          // DEMO VALUES
+          id: uuid(), // FETCH USER ID FROM DATABASE
+          image: action.image, // FETCH PROFILE IMAGE FROM DATABASE
+          name: action.name // FETCH USERNAME FROM DATABASE
+        }
+      ]
     default:
       return state;
   }

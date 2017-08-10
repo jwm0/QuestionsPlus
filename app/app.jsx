@@ -18,6 +18,7 @@ store.subscribe(() => {
 
 var initialQuestions = QuestionAPI.getQuestions();
 store.dispatch(actions.addQuestions(initialQuestions));
+store.dispatch(actions.createUserDatabase(6));
 
 // load foundation
 $(document).foundation();

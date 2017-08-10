@@ -1,5 +1,5 @@
 import * as redux from 'redux';
-var {searchQuestionsReducer, filterReducer, questionsReducer, sortReducer} = require('reducers');
+var {searchQuestionsReducer, filterReducer, questionsReducer, sortReducer, usersReducer} = require('reducers');
 import thunk from 'redux-thunk';
 
 export var configure = (initialState = {}) => {
@@ -7,7 +7,8 @@ export var configure = (initialState = {}) => {
     filter: filterReducer,
     searchText: searchQuestionsReducer,
     sortBy: sortReducer,
-    questions: questionsReducer
+    questions: questionsReducer,
+    users: usersReducer
   })
   var store = redux.createStore(reducer, initialState, redux.compose(
     redux.applyMiddleware(thunk),

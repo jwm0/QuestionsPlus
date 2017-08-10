@@ -2,9 +2,23 @@ import React from 'react';
 import {Link, IndexLink} from 'react-router';
 import {connect} from 'react-redux';
 
+import Peer from 'Peer';
+
 export class Question extends React.Component {
   render () {
-    var {id, author, title, text, score, peers, related, conversations} = this.props;
+    var {id, author, title, text, score, peers, related, conversations, users} = this.props;
+
+    var renderPeers = () => {
+      //size = peers
+      var size = 3;
+
+      return users.sort(function(){return 0.5 - Math.random()}).slice(0, size).map((user) => {
+        return (
+          <Peer key={user.id} {...user}/>
+        );
+      });
+    };
+
     return(
       <div className="large-8 small-12 small-centered question">
         <div className="question-left">
@@ -23,31 +37,15 @@ export class Question extends React.Component {
               <div className="question-blank">
                 <div className="text-footer"><span style={{marginBottom:'60px;font-size:20px'}}><b>{related}</b></span><span>more</span><span>activities</span></div>
               </div>
-              <div className="question-profile">
-                <div className="picture"></div>
-                <div className="text-footer">COMMENTED</div>
-
-              </div>
-              <div className="question-profile">
-                <div className="picture"></div>
-                <div className="text-footer">COMMENTED</div>
-              </div>
-              <div className="question-profile">
-                <div className="picture"></div>
-                <div className="text-footer">COMMENTED</div>
-              </div>
-              <div className="question-profile">
-                <div className="picture"></div>
-                <div className="text-footer" style={{'borderTop': '2px solid rgba(0,0,0,0.6)'}}><b>ANSWERED</b></div>
-                <span>&#9679;</span>
-              </div>
+              {renderPeers()}
+              <Peer answered={true}/>
             </div>
           </div>
         </div>
 
         <div className="question-right">
           <h4>{related} related discussion</h4>
-          <h4>{peers} peers involved</h4>
+          <h4>{peers.count} peers involved</h4>
           <h4>{conversations} conversations</h4>
         </div>
       </div>
@@ -55,4 +53,8 @@ export class Question extends React.Component {
   }
 }
 
-export default connect()(Question);
+export default connect(
+  (state) => {
+    return state;
+  }
+)(Question);

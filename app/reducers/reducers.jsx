@@ -40,12 +40,10 @@ export var questionsReducer = (state=[], action) => {
         text: action.text,
         score: 1,
         related: 0,
+        peers: action.peers,
         conversations: 0,
         submitted: moment().unix(),
-        peers: {
-          count: 1,
-          id: undefined
-        }
+        users: action.users
       }
     ];
     case 'ADD_QUESTIONS':

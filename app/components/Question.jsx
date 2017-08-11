@@ -9,10 +9,7 @@ export class Question extends React.Component {
     var {id, author, title, text, score, peers, related, conversations, users} = this.props;
 
     var renderPeers = () => {
-      //size = peers
-      var size = 3;
-
-      return users.sort(function(){return 0.5 - Math.random()}).slice(0, size).map((user) => {
+      return users.map((user) => {
         return (
           <Peer key={user.id} {...user}/>
         );
@@ -38,14 +35,13 @@ export class Question extends React.Component {
                 <div className="text-footer"><span style={{marginBottom:'60px;font-size:20px'}}><b>{related}</b></span><span>more</span><span>activities</span></div>
               </div>
               {renderPeers()}
-              <Peer answered={true}/>
             </div>
           </div>
         </div>
 
         <div className="question-right">
           <h4>{related} related discussion</h4>
-          <h4>{peers.count} peers involved</h4>
+          <h4>{peers} peers involved</h4>
           <h4>{conversations} conversations</h4>
         </div>
       </div>
@@ -53,8 +49,4 @@ export class Question extends React.Component {
   }
 }
 
-export default connect(
-  (state) => {
-    return state;
-  }
-)(Question);
+export default connect()(Question);

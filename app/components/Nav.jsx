@@ -20,9 +20,11 @@ export class Nav extends React.Component {
     })();
     var title = this.refs.questionTitle.value;
     var text = this.refs.questionText.value;
+    var peerCount = this.refs.peerCount.value;
 
     if(title.length > 0){
-      dispatch(actions.addQuestion(author, title, text));
+      dispatch(actions.newQuestion(title, text, peerCount));
+      //dispatch(actions.addQuestion(author, title, text));
       $('#addQuestionModal').foundation('close');
     }
   }
@@ -40,6 +42,7 @@ export class Nav extends React.Component {
           <form>
             <input type="text" ref="questionTitle" placeholder="Title"/>
             <input type="text" ref="questionText" placeholder="Text"/>
+            <input type="number" ref="peerCount"/>
             <button id="submit_btn" className="button expanded">Submit</button>
           </form>
           <button className="close-button" data-close="" aria-label="Close modal" type="button">

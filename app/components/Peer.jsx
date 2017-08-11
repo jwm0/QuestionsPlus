@@ -12,7 +12,7 @@ export class Peer extends React.Component {
       if (answered) {
         return (
           <div className="question-profile">
-            <div className="picture"></div>
+            <div className="picture" style={{backgroundImage: `url(${image})`}}></div>
             <div className="text-footer" style={{'borderTop': '2px solid rgba(0,0,0,0.6)'}}><b>ANSWERED</b></div>
             <span>&#9679;</span>
           </div>
@@ -20,8 +20,8 @@ export class Peer extends React.Component {
       } else {
         return (
           <div className="question-profile">
-            <div className="picture"></div>
-            <div className="text-footer">{name}</div>
+            <div className="picture" style={{backgroundImage: `url(${image})`}}></div>
+            <div className="text-footer">COMMENTED</div>
           </div>
         )
       }

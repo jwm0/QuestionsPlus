@@ -14,6 +14,7 @@ export class Nav extends React.Component {
   }
   onNewQuestionSubmit () {
     var {dispatch} = this.props;
+    dispatch(actions.setSearchText(""));
     var author = ((name="Anonymous") => {
       // fetch username from database
       return name;
@@ -21,9 +22,10 @@ export class Nav extends React.Component {
     var title = this.refs.questionTitle.value;
     var text = this.refs.questionText.value;
     var peerCount = this.refs.peerCount.value;
+    var answered = this.refs.answered.checked;
 
     if(title.length > 0){
-      dispatch(actions.newQuestion(title, text, peerCount));
+      dispatch(actions.newQuestion(title, text, peerCount, answered));
       //dispatch(actions.addQuestion(author, title, text));
       $('#addQuestionModal').foundation('close');
     }
@@ -42,7 +44,18 @@ export class Nav extends React.Component {
           <form>
             <input type="text" ref="questionTitle" placeholder="Title"/>
             <input type="text" ref="questionText" placeholder="Text"/>
-            <input type="number" ref="peerCount"/>
+            <div className="demo-container">
+              <p>Peers involved:</p>
+              <input className="peerCount" type="number" min="0" defaultValue="0" ref="peerCount"/>
+              <p>Answered?</p>
+              <div className="switch">
+                <input className="switch-input" ref="answered" id="answered" type="checkbox"/>
+                <label className="switch-paddle" htmlFor="answered">
+                  <span className="switch-active" aria-hidden="true">Yes</span>
+                  <span className="switch-inactive" aria-hidden="true">No</span>
+                </label>
+              </div>
+            </div>
             <button id="submit_btn" className="button expanded">Submit</button>
           </form>
           <button className="close-button" data-close="" aria-label="Close modal" type="button">

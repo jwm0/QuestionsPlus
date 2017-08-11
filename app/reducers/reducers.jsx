@@ -42,6 +42,7 @@ export var questionsReducer = (state=[], action) => {
         related: 0,
         peers: action.peers,
         conversations: 0,
+        answered: action.answered,
         submitted: moment().unix(),
         users: action.users
       }

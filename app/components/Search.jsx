@@ -7,7 +7,8 @@ export class Search extends React.Component {
   render () {
     var {searchText, dispatch} = this.props;
     return(
-      <form className="form" onSubmit={() => {
+      <form className="form" onSubmit={(e) => {
+          e.preventDefault();
           var searchText = this.refs.searchText.value;
           dispatch(actions.setSearchText(searchText));
         }}>

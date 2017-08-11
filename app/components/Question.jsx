@@ -6,13 +6,19 @@ import Peer from 'Peer';
 
 export class Question extends React.Component {
   render () {
-    var {id, author, title, text, score, peers, related, conversations, users} = this.props;
+    var {id, author, title, text, score, peers, related, conversations, users, answered} = this.props;
 
+    const arrayLen = users.length;
     var renderPeers = () => {
-      return users.map((user) => {
-        return (
-          <Peer key={user.id} {...user}/>
-        );
+      return users.map((user, i) => {
+        if(arrayLen == i+1){
+          return (
+            <Peer key={user.id} {...user} answered={answered}/>
+          );
+        }
+        else{
+          return (<Peer key={user.id} {...user}/>);
+        }
       });
     };
 

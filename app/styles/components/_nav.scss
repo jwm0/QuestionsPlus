@@ -1,12 +1,32 @@
+// containers
+.nav-container {
+  width: 100%;
+  background-color: #fff;
+}
+
+.demo-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 2rem;
+  border: 1px solid red;
+  border-radius: 10rem;
+
+  input {
+    margin-left: 0.5rem;
+    margin-right: 2rem;
+  }
+}
+
+// ----
 .nav-bar {
   margin-left: 500px; // TEMPORARY
   display: flex;
   justify-content: space-between;
 }
 
-.nav-container {
-  width: 100%;
-  background-color: #fff;
+.peerCount {
+  width: 60px;
 }
 
 #logo{

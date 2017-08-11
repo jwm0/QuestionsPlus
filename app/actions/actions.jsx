@@ -34,32 +34,43 @@ export var addUser = (name, image) => {
   }
 }
 
-export var addQuestion = (author, title, text, peers, users) => {
+export var addQuestion = (author, title, text, peers, users, answered) => {
   return {
     type: 'ADD_QUESTION',
     peers,
     author,
     title,
     text,
-    users
+    users,
+    answered
   }
 }
 
 // Creating a fake user database (6 users) for demonstration purposes
 export var createUserDatabase = () => {
   var names = ['Elon', 'Selena', 'Jacob', 'Andrew', 'Barbra', 'Beth', 'Eva', 'Gary'];
+  var images = [
+    'https://randomuser.me/api/portraits/men/33.jpg',
+    'https://randomuser.me/api/portraits/women/27.jpg',
+    'https://randomuser.me/api/portraits/men/27.jpg',
+    'https://randomuser.me/api/portraits/men/53.jpg',
+    'https://randomuser.me/api/portraits/women/33.jpg',
+    'https://randomuser.me/api/portraits/women/13.jpg',
+    'https://randomuser.me/api/portraits/women/17.jpg',
+    'https://randomuser.me/api/portraits/men/17.jpg'
+  ];
   return (dispatch, getState) => {
     for (var i=0; i<names.length; i++) {
-      dispatch(addUser(names[i], undefined));
+      dispatch(addUser(names[i], images[i]));
     }
   }
 }
 
 // For demo purposes, we create a...
-export var newQuestion = (title, text, peers) => {
+export var newQuestion = (title, text, peers, answered) => {
   return (dispatch, getState) => {
     if (typeof peers === 'number' && peers == 0) {
-      dispatch(addQuestion('Anonymous', title, text, {count:0, id: undefined}));
+      dispatch(addQuestion('Anonymous', title, text, {count:0, id: undefined}, answered));
     }
     else if (peers > 0) {
       // var peerPool = [];
@@ -71,7 +82,7 @@ export var newQuestion = (title, text, peers) => {
       var size = peers;
       if (size > 4) size = 4;
       var users = getState().users.sort(function(){return 0.5 - Math.random()}).slice(0, size);
-      dispatch(addQuestion('Anonymous', title, text, peers, users));
+      dispatch(addQuestion('Anonymous', title, text, peers, users, answered));
     }
   }
 }

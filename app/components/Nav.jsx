@@ -1,41 +1,62 @@
 import React from 'react';
 import {Link, IndexLink} from 'react-router';
 import Search from 'Search';
+import {clearSearchText} from 'Search';
 import {connect} from 'react-redux';
 import * as actions from 'actions';
 
 export class Nav extends React.Component {
+  constructor() {
+    super();
+    this.handleTextChange = this.handleTextChange.bind(this);
+    this.onNewQuestionSubmit = this.onNewQuestionSubmit.bind(this);
+    this.state = {
+      text: ""
+    }
+  }
   componentDidMount () {
+    // Initialize radio button default value
+    var {filter} = this.props;
+    if (filter == 'all') $('#all_questions').prop('checked', true);
+    else if (filter == 'my_shelf') $('#my_shelf').prop('checked', true);
+
+    // Create modal for adding questions -- FOR DEMO PURPOSES
     var addQuestionModal = new Foundation.Reveal($('#addQuestionModal'));
     var that = this;
     $(document).on("click", "#submit_btn", function(event){
     that.onNewQuestionSubmit();
     });
   }
+  handleTextChange (text) {
+    this.setState({
+      text
+    });
+  }
   onNewQuestionSubmit () {
     var {dispatch} = this.props;
-    dispatch(actions.setSearchText(""));
-    var author = ((name="Anonymous") => {
-      // fetch username from database
-      return name;
-    })();
+    // Get values from input fields
     var title = this.refs.questionTitle.value;
     var text = this.refs.questionText.value;
     var peerCount = this.refs.peerCount.value;
     var answered = this.refs.answered.checked;
+    var author = ((name="Anonymous") => {
+      // fetch username from database
+      return name;
+    })();
 
+    // Reset search field
+    dispatch(actions.setSearchText(""));
+    this.setState({text:""});
+    // Check if title is present
     if(title.length > 0){
       dispatch(actions.newQuestion(title, text, peerCount, answered));
       //dispatch(actions.addQuestion(author, title, text));
       $('#addQuestionModal').foundation('close');
     }
   }
-  onSortChange () {
-    var {dispatch} = this.props;
-    dispatch(actions.setSort('hot'));
-  }
   render () {
-    var {sortBy} = this.props;
+    var {text} = this.state;
+    var {sortBy, dispatch} = this.props;
 
     var renderAddQuestion = () => {
       return (
@@ -71,13 +92,14 @@ export class Nav extends React.Component {
               <div>
                 <div className="top-bar-left"><Link to="/"><span id="logo-text">QUESTIONS</span></Link><div id="logo" data-open="addQuestionModal">+</div></div>
                 <div className="nav-bar">
-                  <div><input style={{width:'auto;margin:0'}} name="questions-filter" type="radio" id="my_shelf" required/><label htmlFor="my_shelf">My shelf</label></div>
-                  <div><input style={{width:'auto;margin:0'}} name="questions-filter" type="radio" id="all_questions"/><label style={{marginRight:0}} htmlFor="all_questions">All questions</label></div>
-                  <span style={{'wordSpacing':'2px'}}>Sort by: <i style={{'textDecoration':'underline;cursor:pointer'}}>recent</i> or <span style={{color:'#2199E8;cursor:pointer'}} onClick={this.onSortChange.bind(this)}><b>hot</b></span></span>
+                  <div><input style={{width:'auto;margin:0'}} name="questions-filter" type="radio" id="my_shelf" onChange={()=>{console.log('hi');dispatch(actions.setFilter('my_shelf'))}}/><label htmlFor="my_shelf">My shelf</label></div>
+                  <div><input style={{width:'auto;margin:0'}} name="questions-filter" type="radio" id="all_questions" onChange={()=>{dispatch(actions.setFilter('all'))}}/><label style={{marginRight:0}} htmlFor="all_questions">All questions</label></div>
+                  <span style={{'wordSpacing':'2px'}}>Sort by: <span style={{'textDecoration':'underline;cursor:pointer'}} onClick={()=>{dispatch(actions.setSort('recent'))}}><i>recent</i></span> or
+                  <span style={{color:'#2199E8;cursor:pointer'}} onClick={()=>{dispatch(actions.setSort('hot'))}}><b> hot</b></span></span>
                 </div>
               </div>
             </div>
-            <Search/>
+            <Search text={text} onTextChange={this.handleTextChange}/>
           </div>
         {renderAddQuestion()}
       </div>
@@ -85,4 +107,10 @@ export class Nav extends React.Component {
   }
 }
 
-export default connect()(Nav);
+export default connect(
+  (state) => {
+    return {
+      filter: state.filter
+    }
+  }
+)(Nav);

@@ -34,6 +34,13 @@ export var addUser = (name, image) => {
   }
 }
 
+export var followQuestion = () => {
+  return {
+    type: 'TRIGGER_FOLLOW',
+    follow: !follow
+  }
+}
+
 export var addQuestion = (author, title, text, peers, users, answered) => {
   return {
     type: 'ADD_QUESTION',
@@ -69,8 +76,8 @@ export var createUserDatabase = () => {
 // For demo purposes, we create a...
 export var newQuestion = (title, text, peers, answered) => {
   return (dispatch, getState) => {
-    if (typeof peers === 'number' && peers == 0) {
-      dispatch(addQuestion('Anonymous', title, text, {count:0, id: undefined}, answered));
+    if (peers == 0) {
+      dispatch(addQuestion('Anonymous', title, text, peers, [], false));
     }
     else if (peers > 0) {
       // var peerPool = [];

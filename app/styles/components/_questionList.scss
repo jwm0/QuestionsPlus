@@ -1,0 +1,21 @@
+.footerContainer {
+  display: flex;
+  padding: 2rem;
+  color: $light-color;
+  align-content: center;
+  background-color: #fff;
+  -webkit-box-shadow: 2px 4px 8px 0px rgba(138,138,138,0.4);
+  -moz-box-shadow: 2px 4px 8px 0px rgba(138,138,138,0.4);
+  box-shadow: 2px 4px 8px 0px rgba(138,138,138,0.4);
+  transition: 0.3s ease;
+  cursor: pointer;
+
+  h3 {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+  }
+
+  &:hover{
+    color: $red;
+  }
+}

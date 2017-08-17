@@ -17,13 +17,16 @@ module.exports = {
 
     return $.isArray(questions) ? questions : [];
   },
-  filterQuestions: function (questions, searchText, sortBy) {
+  filterQuestions: function (questions, searchText, sortBy, filter) {
     var filteredQuestions = questions;
 
     // Filter by "My shelf" or "All questions"
-    // filteredTodos = filteredTodos.filter((todo) => {
-    //   return !todo.completed || showCompleted;
-    // });
+    if(filter == 'my_shelf') {
+      filteredQuestions = filteredQuestions.filter((question) => {
+        return question.follow;
+      });
+    }
+
 
     // Filter by searchText
     filteredQuestions = filteredQuestions.filter((question) => {

@@ -23,6 +23,7 @@ export class QuestionList extends React.Component {
   render () {
     var {questions, filter, searchText, sortBy} = this.props;
     var {size} = this.state;
+    questions = QuestionAPI.filterQuestions(questions, searchText, sortBy, filter);
 
     var renderQuestions = () => {
       if (questions.length == 0) {
@@ -30,7 +31,7 @@ export class QuestionList extends React.Component {
           <p className="center">No questions</p>
         );
       }
-      return QuestionAPI.filterQuestions(questions, searchText, sortBy).slice(0, size).map((question) => {
+      return questions.slice(0, size).map((question) => {
         return (
           <Question key={question.id} {...question}/>
         );
@@ -39,8 +40,8 @@ export class QuestionList extends React.Component {
     var renderMoreQuestionsButton = () => {
       if(size<questions.length){
       return (
-        <div className="small-4 callout centered" onClick={this.handleClick.bind(this)}>
-          <h2>Click for more</h2>
+        <div className="large-8 small-12 small-centered footerContainer" onClick={this.handleClick.bind(this)}>
+          <h3>load more questions</h3>
         </div>
       )
     }

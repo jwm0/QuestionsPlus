@@ -10,7 +10,7 @@ export var searchQuestionsReducer = (state='', action) =>{
   }
 }
 
-export var filterReducer = (state='my_shelf', action) =>{
+export var filterReducer = (state='all', action) =>{
   switch(action.type){
     case 'CHANGE_FILTER':
       return action.filter;
@@ -31,26 +31,35 @@ export var sortReducer = (state='recent', action) => {
 export var questionsReducer = (state=[], action) => {
   switch(action.type){
     case 'ADD_QUESTION':
-    return [
-      ...state,
-      {
-        id: uuid(),
-        author: action.author,
-        title: action.title,
-        text: action.text,
-        score: 1,
-        related: 0,
-        peers: action.peers,
-        conversations: 0,
-        answered: action.answered,
-        submitted: moment().unix(),
-        users: action.users
-      }
-    ];
+      return [
+        ...state,
+        {
+          id: uuid(),
+          author: action.author,
+          title: action.title,
+          text: action.text,
+          score: 1,
+          related: 0,
+          peers: action.peers,
+          conversations: 0,
+          answered: action.answered,
+          follow: false,
+          submitted: moment().unix(),
+          users: action.users
+        }
+      ];
     case 'ADD_QUESTIONS':
       return [
         ...state,
         ...action.questions
+      ];
+    case 'TRIGGER_FOLLOW':
+      return [
+        ...state,
+        {
+          ...state,
+          follow: action.follow
+        }
       ];
     default:
       return state;

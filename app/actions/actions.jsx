@@ -93,3 +93,24 @@ export var newQuestion = (title, text, peers, answered) => {
     }
   }
 }
+
+export var openModal = (user, image) => {
+  return {
+    type: 'OPEN_MODAL',
+    user,
+    image
+  }
+}
+
+export var hideModal = () => {
+  return {
+    type: 'HIDE_MODAL'
+  }
+}
+
+export var setCurrentQuestion = (id) => {
+  return {
+    type: 'SET_CURRENT_QUESTION',
+    id
+  }
+}

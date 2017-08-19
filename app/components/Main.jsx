@@ -1,5 +1,6 @@
 import React from 'react';
 import Nav from 'Nav';
+import ProfileModal from 'ProfileModal';
 
 export class Main extends React.Component {
   render () {
@@ -9,6 +10,7 @@ export class Main extends React.Component {
         <div>
             {this.props.children}
         </div>
+        <ProfileModal/>
       </div>
     );
   }

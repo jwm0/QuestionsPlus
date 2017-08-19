@@ -5,6 +5,7 @@ import {Provider} from 'react-redux';
 
 import Main from 'Main';
 import QuestionList from 'QuestionList';
+import Post from 'Post';
 var actions = require('actions');
 var store = require('configureStore').configure();
 var QuestionAPI = require('QuestionAPI');
@@ -30,6 +31,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={hashHistory}>
       <Route path="/" component={Main}>
+        <Route path="/comments" component={Post}/>
         <IndexRoute component={QuestionList}/>
       </Route>
     </Router>

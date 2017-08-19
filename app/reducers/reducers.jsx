@@ -39,9 +39,9 @@ export var questionsReducer = (state=[], action) => {
           title: action.title,
           text: action.text,
           score: 1,
-          related: 0,
+          related: Math.floor((Math.random() * 10) + 1),
           peers: action.peers,
-          conversations: 0,
+          conversations: Math.floor((Math.random() * 10) + 1),
           answered: action.answered,
           follow: false,
           submitted: moment().unix(),
@@ -78,6 +78,32 @@ export var usersReducer = (state=[], action) => {
           name: action.name // FETCH USERNAME FROM DATABASE
         }
       ]
+    default:
+      return state;
+  }
+}
+
+export var modalReducer = (state={showModal:false, user: "Anonymous", image: "url"}, action) => {
+  switch(action.type) {
+    case 'OPEN_MODAL':
+      return {
+        showModal: true,
+        user: action.user,
+        image: action.image
+      };
+    case 'HIDE_MODAL':
+      return {
+        showModal: false
+      };
+    default:
+      return state;
+  }
+}
+
+export var questionIDReducer = (state = null, action)=>{
+  switch(action.type) {
+    case 'SET_CURRENT_QUESTION':
+      return action.id;
     default:
       return state;
   }

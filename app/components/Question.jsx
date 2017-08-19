@@ -66,31 +66,31 @@ export class Question extends React.Component {
 
     const QuestionPost = () => {
       return (
-        <div className="large-8 small-12 small-centered">
-          <div className="question" style={{height:'300px'}}>
-              <div className="question-top">
-                <div className="picture-wrapper"><div className="picture"></div></div>
+        <div className="large-8 small-12 small-centered question" style={{padding:0}}>
+          <div style={{width:'100%'}}>
+            <div className="question-top">
+              <div className="picture-wrapper"><div className="picture"></div></div>
               <div className="header-wrapper">
-                <h3 >{author} <span className="span-style">IS ASKING:</span></h3>
-                <h3 style={{'margin':'0;font-style:italic'}}>{title}</h3>
+                <h3>{author} <span className="span-style">IS ASKING:</span> {score}</h3>
+                <Link to="/comments" onClick={this.handleRedirect}><h3 style={{'margin':'0;font-style:italic'}}>{title}</h3></Link>
               </div>
-              </div>
-              <div>
-                <div className="question-side"></div>
-                <div style={{float:'left;width:85%;padding: 10px 20px'}}>
-                  <div className="comment-left">
-                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-                  </div>
-                  <div className="comment-right"><Voting/></div>
+            </div>
+            <div className="question-bottom">
+              <div className="question-side"></div>
+              <div className="question-text">
+                <div className="comment-left">
+                  <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
                 </div>
+                <div className="comment-right"><Voting/></div>
               </div>
+            </div>
           </div>
         </div>
       )
     }
 
     return(
-      QuestionDefault()
+      QuestionPost()
     );
   }
 }

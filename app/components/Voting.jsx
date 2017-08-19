@@ -4,33 +4,30 @@ var random = function (){
   return Math.floor(Math.random() * 10);
 };
 var liczba = random();
-var Voting = React.createClass({
-  getDefaultProps: function() {
-    return {
-      number: liczba,
-      upvote: 'upvote',
-      downvote: 'downvote'
-    };
-  },
-  getInitialState: function () {
-    return{
+
+export default class Voting extends React.Component {
+  constructor () {
+    super();
+    this.upvote = this.upvote.bind(this);
+    this.downvote = this.downvote.bind(this);
+    this.state = {
       upvoted: false,
       downvoted: false
-    };
-  },
-  upvote: function () {
+    }
+  }
+  upvote () {
     this.setState({
       upvoted: !this.state.upvoted,
       downvoted: false
     });
-  },
-  downvote: function () {
+  }
+  downvote () {
     this.setState({
       upvoted: false,
       downvoted: !this.state.downvoted
     });
-  },
-  render: function () {
+  }
+  render () {
     var {number, upvote, downvote} = this.props;
     var {upvoted, downvoted} = this.state;
 
@@ -53,6 +50,10 @@ var Voting = React.createClass({
       </div>
     );
   }
-});
+}
 
-module.exports = Voting;
+Voting.defaultProps = {
+  number: liczba,
+  upvote: 'upvote',
+  downvote: 'downvote'
+};

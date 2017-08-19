@@ -1,0 +1,55 @@
+.vote{
+  display: inline-block;
+}
+
+.score{
+
+}
+
+.upvote{
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+
+  border-bottom: 18px solid rgba(138,138,138,0.7);
+}
+
+.upvote-active{
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+
+  border-bottom: 18px solid rgba(138,138,238,1);
+}
+
+.upvote:hover{
+  border-bottom: 18px solid rgba(138,138,238,0.7);
+}
+
+.downvote{
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+
+  border-top: 18px solid rgba(138,138,138,0.7);
+}
+
+.downvote-active{
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+
+  border-top: 18px solid rgba(238,138,138,1);
+}
+
+.downvote:hover{
+  border-top: 18px solid rgba(238,138,138,0.7);
+}
+
+.upvote:hover, .downvote:hover, .upvote-active:hover, .downvote-active:hover {
+  cursor: pointer;
+}

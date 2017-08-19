@@ -12,6 +12,7 @@
 @import "components/questionList";
 @import "components/profile_modal";
 @import "components/comment";
+@import "components/voting";
 
 body {
   background-color: $light-grey;
@@ -34,9 +35,6 @@ body {
 
 .picture-wrapper{
   width: 15%;
-  float: left;
-
-  .picture{
-    margin-top: 20px;
-  }
+  display: flex;
+  align-items: center;
 }

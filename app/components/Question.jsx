@@ -15,7 +15,7 @@ export class Question extends React.Component {
     this.props.dispatch(actions.setCurrentQuestion(this.props.id));
   }
   render () {
-    var {id, author, title, text, score, peers, related, conversations, users, answered} = this.props;
+    var {author, title, text, score, peers, related, conversations, users, answered, isPost} = this.props;
 
     const arrayLen = users.length;
     var renderPeers = () => {
@@ -79,19 +79,17 @@ export class Question extends React.Component {
               <div className="question-side"></div>
               <div className="question-text">
                 <div className="comment-left">
-                  <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                  <p>{text}</p>
                 </div>
-                <div className="comment-right"><Voting/></div>
+                <div className="comment-right"><Voting score={score}/></div>
               </div>
             </div>
           </div>
         </div>
       )
     }
-
-    return(
-      QuestionPost()
-    );
+    if (isPost) return(QuestionPost());
+    return(QuestionDefault());
   }
 }
 

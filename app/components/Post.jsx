@@ -10,7 +10,7 @@ export class Post extends React.Component {
       return questionID == question.id;
     });
     var renderQuestion = () => {
-      return (<Question {...question}/>)
+      return (<Question {...question} isPost={true}/>)
     }
     return (
       <div>

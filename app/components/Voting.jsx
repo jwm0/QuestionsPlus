@@ -1,10 +1,5 @@
 var React = require('react');
 
-var random = function (){
-  return Math.floor(Math.random() * 10);
-};
-var liczba = random();
-
 export default class Voting extends React.Component {
   constructor () {
     super();
@@ -28,15 +23,17 @@ export default class Voting extends React.Component {
     });
   }
   render () {
-    var {number, upvote, downvote} = this.props;
+    var {score} = this.props;
     var {upvoted, downvoted} = this.state;
+    var upvote = 'upvote';
+    var downvote = 'downvote';
 
     function voting(){
       if(upvoted){
-        number++;
+        score++;
         upvote = 'upvote-active';
       } else if(downvoted){
-        number--;
+        score--;
         downvote = 'downvote-active';
       }
     };
@@ -45,15 +42,9 @@ export default class Voting extends React.Component {
     return(
       <div className="vote">
         <div className={upvote} onClick={this.upvote}></div>
-        <div className="score">{number}</div>
+        <div className="score">{score}</div>
         <div className={downvote} onClick={this.downvote}></div>
       </div>
     );
   }
 }
-
-Voting.defaultProps = {
-  number: liczba,
-  upvote: 'upvote',
-  downvote: 'downvote'
-};

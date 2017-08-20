@@ -64,7 +64,7 @@ export class Nav extends React.Component {
           <h1>Ask a question!</h1>
           <form>
             <input type="text" ref="questionTitle" placeholder="Title"/>
-            <input type="text" ref="questionText" placeholder="Text"/>
+            <textarea ref="questionText" placeholder="Text"/>
             <div className="demo-container">
               <p>Peers involved:</p>
               <input className="peerCount" type="number" min="0" defaultValue="0" ref="peerCount"/>

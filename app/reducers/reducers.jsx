@@ -61,6 +61,26 @@ export var questionsReducer = (state=[], action) => {
           follow: action.follow
         }
       ];
+    case 'UPVOTE':
+      return state.map((question)=>{
+        if (question.id == action.id) {
+          return {
+            ...question,
+            score: ++question.score
+          }
+        }
+        return question;
+      });
+    case 'DOWNVOTE':
+      return state.map((question)=>{
+        if (question.id == action.id) {
+          return {
+            ...question,
+            score: --question.score
+          }
+        }
+        return question;
+      });
     default:
       return state;
   }

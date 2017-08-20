@@ -15,7 +15,7 @@ export class Question extends React.Component {
     this.props.dispatch(actions.setCurrentQuestion(this.props.id));
   }
   render () {
-    var {author, title, text, score, peers, related, conversations, users, answered, isPost} = this.props;
+    var {id, author, title, text, score, peers, related, conversations, users, answered, isPost} = this.props;
 
     const arrayLen = users.length;
     var renderPeers = () => {
@@ -81,7 +81,7 @@ export class Question extends React.Component {
                 <div className="comment-left">
                   <p>{text}</p>
                 </div>
-                <div className="comment-right"><Voting score={score}/></div>
+                <div className="comment-right"><Voting score={score} id={id}/></div>
               </div>
             </div>
           </div>

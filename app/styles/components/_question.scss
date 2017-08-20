@@ -63,15 +63,17 @@
 .question-fill{
   width: 85%;
   height: 200px;
-  float: right;
+  display: flex;
+  align-items: flex-end;
   .picture{
     margin-top: 20px;
   }
   .question-blank{
     background-color: #fff;
-    height: 200px;
+    height: 180px;
     width: 20%;
     display: inline-block;
+    border-left: 5px solid white;
     overflow: hidden;
     position: relative;
 

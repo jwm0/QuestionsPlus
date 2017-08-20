@@ -26,7 +26,7 @@ export class Peer extends React.Component {
       } else {
         return (
           <div className="question-profile">
-            <div className="picture" style={{backgroundImage: `url(${image})`}}></div>
+            <div className="picture" style={{backgroundImage: `url(${image})`}} onClick={this.handlePictureClick}></div>
             <div className="text-footer">COMMENTED</div>
           </div>
         )

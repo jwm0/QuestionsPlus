@@ -1,15 +1,17 @@
 import React from 'react';
+import Voting from 'Voting';
 
-export class Comment extends React.Component {
+export default class Comment extends React.Component {
   render() {
+    var {name, image} = this.props;
     return(
       <div style={{marginTop:'20px'}}>
-        <div className="large-8 small-12 small-centered columns">
+        <div className="large-8 small-12 small-centered">
           <div className="comment-container">
-            <div className="picture-wrapper"><div className="picture"></div></div>
+            <div className="picture-wrapper"><div className="picture" style={{backgroundImage: `url(${image})`}}></div></div>
             <div className="comment-section">
               <div className="comment-top">
-                Patricia <span className="id1">COMMENTED IT &#9679;</span> <span className="id2">yesterday</span>
+                {name} <span className="id1">COMMENTED IT &#9679;</span> <span className="id2">yesterday</span>
               </div>
               <div className="comment-bottom">
                 <div className="comment-left">

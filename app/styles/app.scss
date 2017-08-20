@@ -24,11 +24,11 @@ body {
 }
 
 .picture{
-  height:70px;
+  height: 70px;
   width: 70px;
   background-image: url("../img/blank.png");
   background-size: contain;
-  border-radius: 50px;
+  border-radius: 50%;
   margin: 0 auto;
   cursor: pointer;
 }
@@ -36,5 +36,6 @@ body {
 .picture-wrapper{
   width: 15%;
   display: flex;
+  justify-content: center;
   align-items: center;
 }

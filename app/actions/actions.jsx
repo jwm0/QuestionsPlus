@@ -41,6 +41,20 @@ export var followQuestion = () => {
   }
 }
 
+export var upvote = (id) => {
+  return {
+    type: 'UPVOTE',
+    id
+  }
+}
+
+export var downvote = (id) => {
+  return {
+    type: 'DOWNVOTE',
+    id
+  }
+}
+
 export var addQuestion = (author, title, text, peers, users, answered) => {
   return {
     type: 'ADD_QUESTION',

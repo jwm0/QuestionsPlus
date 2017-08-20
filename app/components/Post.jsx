@@ -9,12 +9,14 @@ export class Post extends React.Component {
     var question = questions.find((question)=>{
       return questionID == question.id;
     });
+
     var renderQuestion = () => {
       return (<Question {...question} isPost={true}/>)
     }
     return (
       <div>
         {renderQuestion()}
+        <CommentList users={question.users}/>
       </div>
     )
   }

@@ -1,6 +1,8 @@
-var React = require('react');
+import React from 'react';
+import {connect} from 'react-redux';
+import * as actions from 'actions';
 
-export default class Voting extends React.Component {
+export class Voting extends React.Component {
   constructor () {
     super();
     this.upvote = this.upvote.bind(this);
@@ -15,12 +17,14 @@ export default class Voting extends React.Component {
       upvoted: !this.state.upvoted,
       downvoted: false
     });
+    this.props.dispatch(actions.upvote(this.props.id));
   }
   downvote () {
     this.setState({
       upvoted: false,
       downvoted: !this.state.downvoted
     });
+    this.props.dispatch(actions.downvote(this.props.id));
   }
   render () {
     var {score} = this.props;
@@ -30,10 +34,8 @@ export default class Voting extends React.Component {
 
     function voting(){
       if(upvoted){
-        score++;
         upvote = 'upvote-active';
       } else if(downvoted){
-        score--;
         downvote = 'downvote-active';
       }
     };
@@ -48,3 +50,5 @@ export default class Voting extends React.Component {
     );
   }
 }
+
+export default connect()(Voting);

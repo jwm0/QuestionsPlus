@@ -1,8 +1,17 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import * as actions from 'actions';
 import Nav from 'Nav';
 import ProfileModal from 'ProfileModal';
 
 export class Main extends React.Component {
+  constructor () {
+    super();
+    this.handleHideModal= this.handleHideModal.bind(this);
+  }
+  handleHideModal () {
+    this.props.dispatch(actions.hideModal());
+  }
   render () {
     return(
       <div>
@@ -10,10 +19,16 @@ export class Main extends React.Component {
         <div>
             {this.props.children}
         </div>
-        <ProfileModal/>
+        {this.props.modal.showModal ? <ProfileModal name={this.props.modal.user} image={this.props.modal.image} hideMe={this.handleHideModal}/> : null}
       </div>
     );
   }
 }
 
-export default Main;
+export default connect(
+  (state) => {
+    return {
+      modal: state.modal
+    }
+  }
+)(Main);

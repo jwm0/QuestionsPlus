@@ -1,23 +1,21 @@
 import React from 'react';
+import ReactDOM from 'react-dom'
 import {connect} from 'react-redux';
 import * as actions from 'actions';
 
-export class ProfileModal extends React.Component {
+export default class ProfileModal extends React.Component {
   componentDidMount () {
-    var elem = new Foundation.Reveal($('#profile-modal'));
-    $('#profile-modal').on('closed.zf.reveal',()=>{this.props.dispatch(actions.hideModal())});
+    $('#profile-modal').on('closed.zf.reveal',()=>{this.props.hideMe()});
+    var modal = new Foundation.Reveal($('#profile-modal'));
+    modal.open();
   }
   render () {
-    var {modal} = this.props;
-    if (modal.showModal) {
-      $('#profile-modal').foundation('open');
-    }
       return(
         <div>
           <div id="profile-modal" className="reveal large">
             <div className="modal-container">
-              <div className="modal-picture"></div>
-              <p>USERNAME</p>
+              <div className="modal-picture" style={{backgroundImage: `url(${this.props.image})`}}></div>
+              <p>{this.props.name}</p>
               <div className="modal-one-third" style={{float:'left'}}><span className="modal-s2">MEMBER FOR</span> 5 months</div>
               <div className="modal-one-third"><span className="modal-s2">LAST SEEN</span> Saturday</div>
               <div className="modal-one-third" style={{float:'right'}}><span className="modal-s2">ACTIVITY LEVEL</span></div>
@@ -69,14 +67,5 @@ export class ProfileModal extends React.Component {
           </div>
         </div>
       )
-
   }
 };
-
-export default connect(
-  (state) => {
-    return {
-      modal: state.modal
-    }
-  }
-)(ProfileModal);

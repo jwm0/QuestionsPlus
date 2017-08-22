@@ -13,9 +13,11 @@ export class Main extends React.Component {
     this.props.dispatch(actions.hideModal());
   }
   render () {
+    var isMain=false;
+    if (this.props.location.pathname == "/") isMain=true;
     return(
       <div>
-        <Nav/>
+        <Nav isMain={isMain}/>
         <div>
             {this.props.children}
         </div>

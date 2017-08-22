@@ -7,7 +7,12 @@ export default class CommentList extends React.Component {
 
     var renderComments = () => {
       return users.map((user)=>{
-        return (<Comment key={user.id} {...user}/>)
+        return (
+          <div key={user.id}>
+            <Comment {...user}/>
+            <div className="button-label"><button className="button-custom" style={{margin:0}}>COMMENT</button></div>
+          </div>
+        )
       });
     }
 

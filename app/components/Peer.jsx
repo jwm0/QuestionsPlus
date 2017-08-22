@@ -17,17 +17,26 @@ export class Peer extends React.Component {
     var renderPeer = () => {
       if (answered) {
         return (
-          <div className="question-profile">
-            <div className="picture" style={{backgroundImage: `url(${image})`}} onClick={this.handlePictureClick}></div>
-            <div className="text-footer" style={{'borderTop': '2px solid rgba(0,0,0,0.6)'}}><b>ANSWERED</b></div>
-            <span>&#9679;</span>
+          <div style={{width:'20%'}}>
+            <div className="question-profile">
+              <div className="picture" style={{backgroundImage: `url(${image})`}} onClick={this.handlePictureClick}></div>
+              <div className="peer-footer">
+                <div className="text-footer" style={{'borderTop': '2px solid rgba(0,0,0,0.6)'}}><b>ANSWERED</b></div>
+                <span className="profile-dot" style={{backgroundColor:'#222'}}></span>
+              </div>
+            </div>
           </div>
         )
       } else {
         return (
-          <div className="question-profile">
-            <div className="picture" style={{backgroundImage: `url(${image})`}} onClick={this.handlePictureClick}></div>
-            <div className="text-footer">COMMENTED</div>
+          <div style={{width:'20%'}}>
+            <div className="question-profile">
+              <div className="picture" style={{backgroundImage: `url(${image})`}} onClick={this.handlePictureClick}></div>
+              <div className="peer-footer">
+                <div className="text-footer">COMMENTED</div>
+                <span className="profile-dot"></span>
+              </div>
+            </div>
           </div>
         )
       }

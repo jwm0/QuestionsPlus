@@ -43,17 +43,6 @@
   position: relative;
 }
 
-.text-footer{
-  width: 80%;
-  border-top: 2px solid rgba(138,138,138,0.3);
-  position: absolute;
-  bottom: 5%;
-  margin-left: 10%;
-  padding-top: 5px;
-  text-align: center;
-  font-size: 12px;
-}
-
 .question-text {
   display: flex;
   width:85%;
@@ -68,37 +57,92 @@
   .picture{
     margin-top: 20px;
   }
-  .question-blank{
-    background-color: #fff;
-    height: 180px;
-    width: 20%;
-    display: inline-block;
-    border-left: 5px solid white;
-    overflow: hidden;
-    position: relative;
 
-    span{
-      display: block;
-    }
+}
 
-    .text-footer{
-      border: none;
-    }
+.question-blank{
+  background-color: #fff;
+  height: 180px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 5px solid white;
+  font-weight: bold;
+
+  .blank-number {
+    display: flex;
+    margin-top: 20px;
+    height: 70px;
+    width: 70px;
+    justify-content: center;
+    align-items: center;
   }
-  .question-profile{
-    background-color: $grey;
-    height: 180px;
-    width: 20%;
-    display: inline-block;
-    border-left: 5px solid white;
-    overflow: hidden;
-    position: relative;
+}
 
-    span{
-      position: absolute;
-      bottom: -20%;
-      font-size: 50px;
-      margin-left: 38%;
-    }
+.question-profile{
+  background-color: $grey;
+  height: 180px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 5px solid white;
+}
+
+.peer-footer{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .profile-dot{
+    position: relative;
+    bottom: -0.5rem;
+    height: 1rem;
+    width: 1rem;
+    background-color: #bbb;
+    border-radius: 50%;
+  }
+  .text-footer{
+    width: 80%;
+    border-top: 2px solid rgba(138,138,138,0.3);
+    margin-bottom: -0.5rem;
+    text-align: center;
+    font-size: 12px;
+  }
+}
+
+
+
+.button-custom {
+  width: 14rem;
+  background-color: $white;
+  border: 2px solid $grey;
+  padding: 0.5rem 2rem;
+  font-weight: bold;
+}
+
+.button-label {
+  display: flex;
+  height: 4rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: -2rem;
+}
+
+.follow-button {
+  width: 15%;
+  display: flex;
+  align-items: center;
+
+  button {
+    outline: none;
+    user-select: none;
+    color: $foundationBlue;
+    font-weight: bold;
+    font-size: 20px;
   }
 }

@@ -10,21 +10,21 @@ export class Voting extends React.Component {
     this.state = {
       upvoted: false,
       downvoted: false
-    }
+    };
   }
   upvote () {
     this.setState({
       upvoted: !this.state.upvoted,
       downvoted: false
     });
-    this.props.dispatch(actions.upvote(this.props.id));
+    this.props.dispatch(actions.upvote(this.props.id, this.state));
   }
   downvote () {
     this.setState({
       upvoted: false,
       downvoted: !this.state.downvoted
     });
-    this.props.dispatch(actions.downvote(this.props.id));
+    this.props.dispatch(actions.downvote(this.props.id, this.state));
   }
   render () {
     var {score} = this.props;

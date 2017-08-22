@@ -34,24 +34,26 @@ export var addUser = (name, image) => {
   }
 }
 
-export var followQuestion = () => {
+export var followQuestion = (id) => {
   return {
     type: 'TRIGGER_FOLLOW',
-    follow: !follow
+    id
   }
 }
 
-export var upvote = (id) => {
+export var upvote = (id, voteStatus) => {
   return {
     type: 'UPVOTE',
-    id
+    id,
+    voteStatus
   }
 }
 
-export var downvote = (id) => {
+export var downvote = (id, voteStatus) => {
   return {
     type: 'DOWNVOTE',
-    id
+    id,
+    voteStatus
   }
 }
 
@@ -94,15 +96,10 @@ export var newQuestion = (title, text, peers, answered) => {
       dispatch(addQuestion('Anonymous', title, text, peers, [], false));
     }
     else if (peers > 0) {
-      // var peerPool = [];
-      // getState().users.map((user)=>{
-      //   peerPool.push(user.id);
-      // });
-      // peerPool = peerPool.sort(function(){return 0.5 - Math.random()}).slice(0, peers);
-      // dispatch(addQuestion('Anonymous', title, text, {count: peers, id: peerPool}));
       var size = peers;
       if (size > 4) size = 4;
       var users = getState().users.sort(function(){return 0.5 - Math.random()}).slice(0, size);
+      users.map((user)=>{user.score=1;user.voteStatus=""});
       dispatch(addQuestion('Anonymous', title, text, peers, users, answered));
     }
   }

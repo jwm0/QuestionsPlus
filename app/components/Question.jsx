@@ -10,20 +10,24 @@ export class Question extends React.Component {
   constructor () {
     super();
     this.handleRedirect = this.handleRedirect.bind(this);
+    this.handleFollow = this.handleFollow.bind(this);
   }
   handleRedirect () {
     this.props.dispatch(actions.setCurrentQuestion(this.props.id));
   }
+  handleFollow () {
+    this.props.dispatch(actions.followQuestion(this.props.id));
+  }
   render () {
-    var {id, author, title, text, score, peers, related, conversations, users, answered, isPost} = this.props;
+    var {id, author, title, text, score, peers, related, conversations, users, answered, isPost, follow} = this.props;
 
+    const followButton = follow ? "unfollow" : "follow";
     const arrayLen = users.length;
+
     var renderPeers = () => {
       return users.map((user, i) => {
         if(arrayLen == i+1){
-          return (
-            <Peer key={user.id} {...user} answered={answered}/>
-          );
+          return (<Peer key={user.id} {...user} answered={answered}/>);
         }
         else{
           return (<Peer key={user.id} {...user}/>);
@@ -47,8 +51,14 @@ export class Question extends React.Component {
                 <div className="text-footer">ASKED</div>
               </div>
               <div className="question-fill">
-                <div className="question-blank">
-                  <div className="text-footer"><span style={{marginBottom:'60px;font-size:20px'}}><b>{related}</b></span><span>more</span><span>activities</span></div>
+                <div style={{width:'20%'}}>
+                  <div className="question-blank">
+                    <span className="blank-number">{related}</span>
+                    <div className="peer-footer">
+                      <div className="text-center" style={{fontStyle:'italic'}}>more<br/>activities</div>
+                      <span className="profile-dot"></span>
+                    </div>
+                  </div>
                 </div>
                 {renderPeers()}
               </div>
@@ -74,6 +84,7 @@ export class Question extends React.Component {
                 <h3>{author} <span className="span-style">IS ASKING:</span> {score}</h3>
                 <Link to="/comments" onClick={this.handleRedirect}><h3 style={{'margin':'0;font-style:italic'}}>{title}</h3></Link>
               </div>
+              <div className="follow-button"><button onClick={this.handleFollow}>{followButton}</button></div>
             </div>
             <div className="question-bottom">
               <div className="question-side"></div>

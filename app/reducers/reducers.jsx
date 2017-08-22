@@ -54,29 +54,51 @@ export var questionsReducer = (state=[], action) => {
         ...action.questions
       ];
     case 'TRIGGER_FOLLOW':
-      return [
-        ...state,
-        {
-          ...state,
-          follow: action.follow
-        }
-      ];
-    case 'UPVOTE':
       return state.map((question)=>{
         if (question.id == action.id) {
           return {
             ...question,
-            score: ++question.score
+            follow: !question.follow
+          }
+        }
+        return question;
+      });
+    case 'UPVOTE':
+      return state.map((question)=>{
+        question.users.map((user)=>{
+          if (user.id == action.id) {
+            return {
+              ...user,
+              voteStatus: action.voteStatus,
+              score: ++user.score
+            }
+          }
+        });
+        if (question.id == action.id) {
+          return {
+            ...question,
+            voteStatus: action.voteStatus,
+            score: ((question.voteStatus.upvoted) ? ++question.score : --question.score)
           }
         }
         return question;
       });
     case 'DOWNVOTE':
       return state.map((question)=>{
+        question.users.map((user)=>{
+          if (user.id == action.id) {
+            return {
+              ...user,
+              score: --user.score,
+              voteStatus: action.voteStatus
+            }
+          }
+        });
         if (question.id == action.id) {
           return {
             ...question,
-            score: --question.score
+            voteStatus: action.voteStatus,
+            score: ((question.voteStatus.downvoted) ? --question.score : ++question.score)
           }
         }
         return question;

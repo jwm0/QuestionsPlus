@@ -11,11 +11,17 @@ export class Post extends React.Component {
     });
 
     var renderQuestion = () => {
-      return (<Question {...question} isPost={true}/>)
+      return (
+        <div>
+          <Question {...question} isPost={true}/>
+          <div className="button-label"><button className="button-custom" style={{margin:0}}>GIVE new answer</button></div>
+        </div>
+      )
     }
     return (
       <div>
         {renderQuestion()}
+        <div className="text-center">{question.users.length} peers already answered {question.author}</div>
         <CommentList users={question.users}/>
       </div>
     )

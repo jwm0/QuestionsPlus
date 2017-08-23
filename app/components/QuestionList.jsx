@@ -1,6 +1,7 @@
 import React from 'react';
 import Question from 'Question';
 import QuestionAPI from 'QuestionAPI';
+import Nav from 'Nav';
 import {connect} from 'react-redux';
 
 // global variables
@@ -49,8 +50,11 @@ export class QuestionList extends React.Component {
 
     return (
       <div>
-        {renderQuestions()}
-        {renderMoreQuestionsButton()}
+        <Nav isMain={true}/>
+        <div className="medium-centered large-11 medium-12" style={{backgroundColor:'#fafafa'}}>
+          {renderQuestions()}
+          {renderMoreQuestionsButton()}
+        </div>
       </div>
     )
   }

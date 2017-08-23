@@ -1,6 +1,7 @@
 import React from 'react';
 import CommentList from 'CommentList';
 import Question from 'Question';
+import Nav from 'Nav';
 import {connect} from 'react-redux';
 
 export class Post extends React.Component {
@@ -20,9 +21,12 @@ export class Post extends React.Component {
     }
     return (
       <div>
-        {renderQuestion()}
-        <div className="text-center">{question.users.length} peers already answered {question.author}</div>
-        <CommentList users={question.users}/>
+        <Nav isMain={false}/>
+        <div className="medium-centered large-11 medium-12" style={{backgroundColor:'#fafafa'}}>
+          {renderQuestion()}
+          <div className="text-center">{question.users.length} peers already answered {question.author}</div>
+          <CommentList users={question.users}/>
+        </div>
       </div>
     )
   }

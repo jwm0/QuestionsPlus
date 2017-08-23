@@ -88,9 +88,9 @@ export class Nav extends React.Component {
     const NavPost = ()=>{
       return(
         <div className="nav-container">
-            <div className="small-centered small-10 large-8 centered">
+            <div className="small-centered small-12 large-8 centered">
               <div className="top-bar" style={{backgroundColor:'#fff;padding-top:2rem;padding-bottom:2rem'}}>
-                <div className="top-bar-left"><Link to="/"><span id="logo-text">QUESTIONS</span></Link><div id="logo" data-open="addQuestionModal">+</div></div>
+                <div className="top-bar-left"><Link to="/"><span className="logo-text">QUESTIONS</span></Link><div className="logo" data-open="addQuestionModal">+</div></div>
               </div>
             </div>
         </div>
@@ -100,27 +100,30 @@ export class Nav extends React.Component {
     const NavMain = ()=>{
       return(
         <div className="nav-container">
-            <div className="small-centered small-10 large-8 centered">
-              <div className="top-bar">
-                <div>
-                  <div className="top-bar-left"><Link to="/"><span id="logo-text">QUESTIONS</span></Link><div id="logo" data-open="addQuestionModal">+</div></div>
-                  <div className="nav-bar">
-                    <div><input style={{width:'auto;margin:0'}} name="questions-filter" type="radio" id="my_shelf" onChange={()=>{dispatch(actions.setFilter('my_shelf'))}}/><label htmlFor="my_shelf">My shelf</label></div>
-                    <div><input style={{width:'auto;margin:0'}} name="questions-filter" type="radio" id="all_questions" onChange={()=>{dispatch(actions.setFilter('all'))}}/><label style={{marginRight:0}} htmlFor="all_questions">All questions</label></div>
-                    <span style={{'wordSpacing':'2px'}}>Sort by: <span style={{'textDecoration':'underline;cursor:pointer'}} onClick={()=>{dispatch(actions.setSort('recent'))}}><i>recent</i></span> or
-                    <span style={{color:'#2199E8;cursor:pointer'}} onClick={()=>{dispatch(actions.setSort('hot'))}}><b> hot</b></span></span>
+          <div className="medium-centered large-11 medium-12">
+            <div className="logo logo-back">&lt;</div>
+              <div className="small-centered small-12 large-8 centered">
+                <div className="top-bar" style={{backgroundColor:'#fff'}}>
+                  <div className="bar">
+                    <div className="top-bar-left"><Link to="/"><span className="logo-text">QUESTIONS</span></Link><div className="logo" data-open="addQuestionModal">+</div></div>
+                    <div className="nav-bar">
+                      <div><input style={{width:'auto;margin:0'}} name="questions-filter" type="radio" id="my_shelf" onChange={()=>{dispatch(actions.setFilter('my_shelf'))}}/><label htmlFor="my_shelf">My shelf</label></div>
+                      <div><input style={{width:'auto;margin:0'}} name="questions-filter" type="radio" id="all_questions" onChange={()=>{dispatch(actions.setFilter('all'))}}/><label style={{marginRight:0}} htmlFor="all_questions">All questions</label></div>
+                      <span style={{'wordSpacing':'2px'}}>Sort by: <span style={{'textDecoration':'underline;cursor:pointer'}} onClick={()=>{dispatch(actions.setSort('recent'))}}><i>recent</i></span> or
+                      <span style={{color:'#2199E8;cursor:pointer'}} onClick={()=>{dispatch(actions.setSort('hot'))}}><b> hot</b></span></span>
+                    </div>
                   </div>
                 </div>
+                <Search text={text} onTextChange={this.handleTextChange}/>
               </div>
-              <Search text={text} onTextChange={this.handleTextChange}/>
-            </div>
-          {renderAddQuestion()}
+            {renderAddQuestion()}
+          </div>
         </div>
       )
     }
 
     if (this.props.isMain) return(NavMain());
-    else return null;
+    else return (NavPost());
   }
 }
 

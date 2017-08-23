@@ -42,7 +42,7 @@ export class Question extends React.Component {
             <div className="question-top">
               <div className="picture-wrapper"><div className="picture"></div></div>
               <div className="header-wrapper">
-                <h3>{author} <span className="span-style">IS ASKING:</span> {score}</h3>
+                <h3>{author} <span className="span-style">IS ASKING:</span></h3>
                 <Link to="/comments" onClick={this.handleRedirect}><h3 style={{'margin':'0;font-style:italic'}}>{title}</h3></Link>
               </div>
             </div>
@@ -81,7 +81,7 @@ export class Question extends React.Component {
             <div className="question-top">
               <div className="picture-wrapper"><div className="picture"></div></div>
               <div className="header-wrapper">
-                <h3>{author} <span className="span-style">IS ASKING:</span> {score}</h3>
+                <h3>{author} <span className="span-style">IS ASKING:</span></h3>
                 <Link to="/comments" onClick={this.handleRedirect}><h3 style={{'margin':'0;font-style:italic'}}>{title}</h3></Link>
               </div>
               <div className="follow-button"><button onClick={this.handleFollow}>{followButton}</button></div>

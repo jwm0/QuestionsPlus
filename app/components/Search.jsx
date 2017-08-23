@@ -19,8 +19,8 @@ export class Search extends React.Component {
           var searchText = this.refs.searchText.value.toLowerCase();
           dispatch(actions.setSearchText(searchText));
         }}>
-        <input type="text" ref="searchText" placeholder="Search questions" onChange={this.handleTextChange} value={text}/>
-        <input type="submit" className="button" value="SEARCH"/>
+        <input type="text" ref="searchText" style={{width:'80%'}} placeholder="Search questions" onChange={this.handleTextChange} value={text}/>
+        <input type="submit" className="button" style={{width:'15%'}} value="SEARCH"/>
       </form>
     )
   }

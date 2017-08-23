@@ -29,7 +29,10 @@ export class QuestionList extends React.Component {
     var renderQuestions = () => {
       if (questions.length == 0) {
         return (
-          <p className="center">No questions</p>
+          <span className="text-center" style={{display:'block;padding-top:5rem'}}>
+            <h1>whoops... nothing here</h1>
+            <p><b>add or follow a question</b></p>
+          </span>
         );
       }
       return questions.slice(0, size).map((question) => {
@@ -41,7 +44,7 @@ export class QuestionList extends React.Component {
     var renderMoreQuestionsButton = () => {
       if(size<questions.length){
       return (
-        <div className="large-8 small-12 small-centered footerContainer" onClick={this.handleClick.bind(this)}>
+        <div className="large-8 medium-10 small-12 small-centered footerContainer" onClick={this.handleClick.bind(this)}>
           <h3>load more questions</h3>
         </div>
       )
@@ -51,7 +54,7 @@ export class QuestionList extends React.Component {
     return (
       <div>
         <Nav isMain={true}/>
-        <div className="medium-centered large-11 medium-12" style={{backgroundColor:'#fafafa'}}>
+        <div className="medium-centered large-11 medium-12" style={{backgroundColor:'#fafafa;min-height:80vh'}}>
           {renderQuestions()}
           {renderMoreQuestionsButton()}
         </div>

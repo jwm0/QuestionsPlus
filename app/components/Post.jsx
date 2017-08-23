@@ -22,9 +22,9 @@ export class Post extends React.Component {
     return (
       <div>
         <Nav isMain={false}/>
-        <div className="medium-centered large-11 medium-12" style={{backgroundColor:'#fafafa'}}>
+        <div className="medium-centered large-11 medium-12" style={{backgroundColor:'#fafafa;min-height:80vh'}}>
           {renderQuestion()}
-          <div className="text-center">{question.users.length} peers already answered {question.author}</div>
+          <div className="text-center" style={{marginBottom:'1rem'}}>{question.users.length} peer already answered {question.author}</div>
           <CommentList users={question.users}/>
         </div>
       </div>

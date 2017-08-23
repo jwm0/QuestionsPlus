@@ -37,7 +37,7 @@ export class Question extends React.Component {
 
     const QuestionDefault = () => {
       return(
-        <div className="large-8 small-12 small-centered question">
+        <div className="large-8 medium-10 small-12 small-centered question">
           <div className="question-left">
             <div className="question-top">
               <div className="picture-wrapper"><div className="picture"></div></div>
@@ -61,6 +61,11 @@ export class Question extends React.Component {
                   </div>
                 </div>
                 {renderPeers()}
+                <div className="question-right-medium">
+                  <h4>{related} related discussion</h4>
+                  <h4>{peers} peers involved</h4>
+                  <h4>{conversations} conversations</h4>
+                </div>
               </div>
             </div>
           </div>
@@ -76,7 +81,7 @@ export class Question extends React.Component {
 
     const QuestionPost = () => {
       return (
-        <div className="large-8 small-12 small-centered question" style={{padding:0}}>
+        <div className="large-8 medium-10 small-12 small-centered question" style={{padding:0}}>
           <div style={{width:'100%'}}>
             <div className="question-top">
               <div className="picture-wrapper"><div className="picture"></div></div>

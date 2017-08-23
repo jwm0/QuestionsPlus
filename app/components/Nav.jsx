@@ -50,7 +50,6 @@ export class Nav extends React.Component {
     // Check if title is present
     if(title.length > 0){
       dispatch(actions.newQuestion(title, text, peerCount, answered));
-      //dispatch(actions.addQuestion(author, title, text));
       $('#addQuestionModal').foundation('close');
     }
   }
@@ -88,11 +87,14 @@ export class Nav extends React.Component {
     const NavPost = ()=>{
       return(
         <div className="nav-container">
-            <div className="small-centered small-12 large-8 centered">
+          <div className="medium-centered large-11 medium-12">
+            <div className="small-centered small-12 large-8">
               <div className="top-bar" style={{backgroundColor:'#fff;padding-top:2rem;padding-bottom:2rem'}}>
                 <div className="top-bar-left"><Link to="/"><span className="logo-text">QUESTIONS</span></Link><div className="logo" data-open="addQuestionModal">+</div></div>
+                <div className="top-bar-right">Last time discussed  1  day ago</div>
               </div>
             </div>
+          </div>
         </div>
       )
     }
@@ -101,7 +103,6 @@ export class Nav extends React.Component {
       return(
         <div className="nav-container">
           <div className="medium-centered large-11 medium-12">
-            <div className="logo logo-back">&lt;</div>
               <div className="small-centered small-12 large-8 centered">
                 <div className="top-bar" style={{backgroundColor:'#fff'}}>
                   <div className="bar">
@@ -109,8 +110,10 @@ export class Nav extends React.Component {
                     <div className="nav-bar">
                       <div><input style={{width:'auto;margin:0'}} name="questions-filter" type="radio" id="my_shelf" onChange={()=>{dispatch(actions.setFilter('my_shelf'))}}/><label htmlFor="my_shelf">My shelf</label></div>
                       <div><input style={{width:'auto;margin:0'}} name="questions-filter" type="radio" id="all_questions" onChange={()=>{dispatch(actions.setFilter('all'))}}/><label style={{marginRight:0}} htmlFor="all_questions">All questions</label></div>
-                      <span style={{'wordSpacing':'2px'}}>Sort by: <span style={{'textDecoration':'underline;cursor:pointer'}} onClick={()=>{dispatch(actions.setSort('recent'))}}><i>recent</i></span> or
-                      <span style={{color:'#2199E8;cursor:pointer'}} onClick={()=>{dispatch(actions.setSort('hot'))}}><b> hot</b></span></span>
+                      <div style={{width:'33%;padding-left:1rem'}}>
+                        <span style={{'wordSpacing':'2px'}}>Sort by: <span style={{'textDecoration':'underline;cursor:pointer'}} onClick={()=>{dispatch(actions.setSort('recent'))}}><i>recent</i></span> or
+                        <span style={{color:'#2199E8;cursor:pointer'}} onClick={()=>{dispatch(actions.setSort('hot'))}}><b> hot</b></span></span>
+                      </div>
                     </div>
                   </div>
                 </div>

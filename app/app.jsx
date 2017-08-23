@@ -10,7 +10,6 @@ var actions = require('actions');
 var store = require('configureStore').configure();
 var QuestionAPI = require('QuestionAPI');
 
-
 store.subscribe(() => {
   var state = store.getState();
   console.log('New state', state);

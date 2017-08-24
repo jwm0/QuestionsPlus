@@ -168,7 +168,7 @@
 
 
 // media
-@media screen and (max-width: 600px) and (min-width: 0) {
+@media screen and (max-width: 700px) and (min-width: 0) {
   .question-side{
     display: none;
   }
@@ -183,7 +183,7 @@
   }
 }
 
-@media screen and (max-width: 800px) and (min-width: 0) {
+@media screen and (max-width: 1000px) and (min-width: 0) {
   .question-left{
     width: 100%;
   }

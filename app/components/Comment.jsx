@@ -6,7 +6,7 @@ export default class Comment extends React.Component {
     var {id, name, image, score} = this.props;
     return(
       <div>
-        <div className="large-8 small-12 small-centered">
+        <div className="large-8 medium-10 small-12 small-centered">
           <div className="comment-container">
             <div className="picture-wrapper"><div className="picture" style={{backgroundImage: `url(${image})`}}></div></div>
             <div className="comment-section">

@@ -88,7 +88,7 @@ export class Nav extends React.Component {
       return(
         <div className="nav-container">
           <div className="medium-centered large-11 medium-12">
-            <div className="small-centered small-12 large-8">
+            <div className="large-8 medium-10 small-12 small-centered">
               <div className="top-bar" style={{backgroundColor:'#fff;padding-top:2rem;padding-bottom:2rem'}}>
                 <div className="top-bar-left"><Link to="/"><span className="logo-text">QUESTIONS</span></Link><div className="logo" data-open="addQuestionModal">+</div></div>
                 <div className="top-bar-right">Last time discussed  1  day ago</div>
@@ -103,7 +103,7 @@ export class Nav extends React.Component {
       return(
         <div className="nav-container">
           <div className="medium-centered large-11 medium-12">
-              <div className="small-centered small-12 large-8 centered">
+              <div className="large-8 medium-10 small-12 small-centered">
                 <div className="top-bar" style={{backgroundColor:'#fff'}}>
                   <div className="bar">
                     <div className="top-bar-left"><Link to="/"><span className="logo-text">QUESTIONS</span></Link><div className="logo" data-open="addQuestionModal">+</div></div>

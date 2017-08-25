@@ -6,10 +6,12 @@ export default class CommentList extends React.Component {
     var {users} = this.props;
 
     var renderComments = () => {
-      return users.map((user)=>{
+      var hasChild = true;
+      return users.map((user, i)=>{
+        if (i>0) hasChild=false;
         return (
           <div key={user.id}>
-            <Comment {...user}/>
+            <Comment {...user} hasChild={hasChild}/>
             <div className="button-label"><button className="button-custom" style={{margin:0}}>COMMENT</button></div>
           </div>
         )

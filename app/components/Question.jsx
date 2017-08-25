@@ -81,7 +81,7 @@ export class Question extends React.Component {
 
     const QuestionPost = () => {
       return (
-        <div className="large-8 medium-10 small-12 small-centered question" style={{padding:0}}>
+        <div className="large-8 medium-10 small-12 small-centered question" style={{padding:'0;border:none'}}>
           <div style={{width:'100%'}}>
             <div className="question-top">
               <div className="picture-wrapper"><div className="picture"></div></div>
@@ -97,7 +97,7 @@ export class Question extends React.Component {
                 <div className="comment-left">
                   <p>{text}</p>
                 </div>
-                <div className="comment-right"><Voting score={score} id={id}/></div>
+                <div className="comment-right"><Voting score={score} id={id} voteStatus={this.props.voteStatus}/></div>
               </div>
             </div>
           </div>

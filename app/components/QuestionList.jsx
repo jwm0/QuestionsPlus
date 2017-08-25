@@ -27,14 +27,14 @@ export class QuestionList extends React.Component {
     questions = QuestionAPI.filterQuestions(questions, searchText, sortBy, filter);
 
     var renderQuestions = () => {
-      if (questions.length == 0) {
+      if (questions.length == 0 && searchText == "") {
         return (
           <span className="text-center" style={{display:'block;padding-top:5rem'}}>
             <h1>whoops... nothing here</h1>
             <p><b>add or follow a question</b></p>
           </span>
         );
-      }
+      };
       return questions.slice(0, size).map((question) => {
         return (
           <Question key={question.id} {...question}/>
@@ -51,10 +51,23 @@ export class QuestionList extends React.Component {
     }
     }
 
+    var renderSearchResult = () => {
+      if (searchText.length > 0) {
+        var result = (()=>{if(questions.length==1) return "result"
+        else return "results"})();
+        return (
+          <span className="text-center" style={{display:'block;padding-top:1rem'}}>
+            <p>{questions.length} search {result} for "{searchText}"</p>
+          </span>
+        );
+      }
+    }
+
     return (
       <div>
         <Nav isMain={true}/>
         <div className="medium-centered large-11 medium-12" style={{backgroundColor:'#fafafa;min-height:80vh'}}>
+          {renderSearchResult()}
           {renderQuestions()}
           {renderMoreQuestionsButton()}
         </div>

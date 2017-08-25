@@ -7,9 +7,13 @@ import {connect} from 'react-redux';
 export class Post extends React.Component {
   render() {
     var {questions, questionID} = this.props;
+
     var question = questions.find((question)=>{
       return questionID == question.id;
     });
+
+    var peer = (()=>{if(question.users.length==1) return "peer"
+    else return "peers"})();
 
     var renderQuestion = () => {
       return (
@@ -24,7 +28,7 @@ export class Post extends React.Component {
         <Nav isMain={false}/>
         <div className="medium-centered large-11 medium-12" style={{backgroundColor:'#fafafa;min-height:80vh'}}>
           {renderQuestion()}
-          <div className="text-center" style={{marginBottom:'1rem'}}>{question.users.length} peer already answered {question.author}</div>
+          <div className="text-center" style={{marginBottom:'1rem'}}>{question.users.length} {peer} already answered {question.author}</div>
           <CommentList users={question.users}/>
         </div>
       </div>

@@ -63,7 +63,9 @@ export default class ProfileModal extends React.Component {
                 <div className="modal-bar">19 upvotes</div>
               </div>
             </div>
-            <button className="top-corner" data-close="">&#10006;</button>
+            <button className="close-button" data-close="" aria-label="Close reveal" type="button">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
         </div>
       )

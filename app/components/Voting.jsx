@@ -10,21 +10,34 @@ export class Voting extends React.Component {
     this.state = {
       upvoted: false,
       downvoted: false
-    };
+    }
   }
   upvote () {
     this.setState({
       upvoted: !this.state.upvoted,
       downvoted: false
     });
-    this.props.dispatch(actions.upvote(this.props.id, this.state));
+    var {score} = this.props;
+    var {upvoted, downvoted} = this.state;
+
+    if(!upvoted && !downvoted) score++;
+    else if(!downvoted && upvoted) score--;
+    else if (downvoted && !upvoted) score+=2;
+    this.props.dispatch(actions.vote(this.props.id, score, this.state));
   }
   downvote () {
     this.setState({
       upvoted: false,
       downvoted: !this.state.downvoted
     });
-    this.props.dispatch(actions.downvote(this.props.id, this.state));
+    //---
+    var {score} = this.props;
+    var {upvoted, downvoted} = this.state;
+
+    if(!upvoted && !downvoted) score--;
+    else if(!upvoted && downvoted) score++;
+    else if (upvoted && !downvoted) score-=2;
+    this.props.dispatch(actions.vote(this.props.id, score, this.state));
   }
   render () {
     var {score} = this.props;
@@ -32,15 +45,9 @@ export class Voting extends React.Component {
     var upvote = 'upvote';
     var downvote = 'downvote';
 
-    function voting(){
-      if(upvoted){
-        upvote = 'upvote-active';
-      } else if(downvoted){
-        downvote = 'downvote-active';
-      }
-    };
+    if(upvoted) upvote = 'upvote-active';
+    else if(downvoted) downvote = 'downvote-active';
 
-    voting();
     return(
       <div className="vote">
         <div className={upvote} onClick={this.upvote}></div>

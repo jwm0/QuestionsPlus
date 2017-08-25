@@ -3,17 +3,17 @@
   background-color: #fff;
   -webkit-box-shadow: 2px 4px 8px 0px rgba(138,138,138,0.5);
   -moz-box-shadow: 2px 4px 8px 0px rgba(138,138,138,0.5);
-  box-shadow: 2px 4px 8px 0px rgba(138,138,138,0.2);
-  //border-bottom: 2px solid rgba(138,138,138,0.3);
+  box-shadow: 2px 4px 8px 0px rgba(138,138,138,0.5);
+  border-bottom: 1px solid rgba(138,138,138,0.3);
 }
 
 .reply-container{
+  display: flex;
   background-color: #fff;
-  display: inline-block;
   -webkit-box-shadow: 2px 4px 8px 0px rgba(138,138,138,0.5);
   -moz-box-shadow: 2px 4px 8px 0px rgba(138,138,138,0.5);
   box-shadow: 2px 4px 8px 0px rgba(138,138,138,0.5);
-  border-bottom: 2px solid rgba(138,138,138,0.3);
+  border-bottom: 1px solid rgba(138,138,138,0.3);
   width: 85%;
   float: right;
 }
@@ -35,19 +35,18 @@
 }
 
 .comment-left{
-  width: 80%;
+  width: 85%;
   float: left;
 }
 
 .comment-right{
-  width: 20%;
-  float: left;
+  width: 5rem;
+  float: right;
   text-align: center;
 }
 
 #reply{
   overflow: auto;
-  margin-bottom: 20px;
 }
 .id1{
   margin: 0 6px;

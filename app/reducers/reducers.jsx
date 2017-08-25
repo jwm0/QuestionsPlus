@@ -45,7 +45,8 @@ export var questionsReducer = (state=[], action) => {
           answered: action.answered,
           follow: false,
           submitted: moment().unix(),
-          users: action.users
+          users: action.users,
+          voteStatus: {upvoted:false,downvoted:false}
         }
       ];
     case 'ADD_QUESTIONS':
@@ -63,46 +64,28 @@ export var questionsReducer = (state=[], action) => {
         }
         return question;
       });
-    case 'UPVOTE':
-      return state.map((question)=>{
-        question.users.map((user)=>{
-          if (user.id == action.id) {
-            return {
-              ...user,
-              voteStatus: action.voteStatus,
-              score: ++user.score
+    case 'VOTE':
+    return state.map((question)=>{
+            question.users.map((user)=>{
+              if (user.id == action.id) {
+                console.log('ohey', user.id);
+                return {
+                  ...user,
+                  voteStatus: action.voteStatus,
+                  score: 100
+                }
+              }
+            });
+            if (question.id == action.id) {
+              return {
+                ...question,
+                voteStatus: action.voteStatus,
+                score: action.score
+              }
             }
-          }
-        });
-        if (question.id == action.id) {
-          return {
-            ...question,
-            voteStatus: action.voteStatus,
-            score: ((question.voteStatus.upvoted) ? ++question.score : --question.score)
-          }
-        }
-        return question;
-      });
-    case 'DOWNVOTE':
-      return state.map((question)=>{
-        question.users.map((user)=>{
-          if (user.id == action.id) {
-            return {
-              ...user,
-              score: --user.score,
-              voteStatus: action.voteStatus
-            }
-          }
-        });
-        if (question.id == action.id) {
-          return {
-            ...question,
-            voteStatus: action.voteStatus,
-            score: ((question.voteStatus.downvoted) ? --question.score : ++question.score)
-          }
-        }
-        return question;
-      });
+            console.log('shit');
+            return question;
+          });
     default:
       return state;
   }

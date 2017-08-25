@@ -41,19 +41,12 @@ export var followQuestion = (id) => {
   }
 }
 
-export var upvote = (id, voteStatus) => {
+export var vote = (id, score, voteStatus) => {
   return {
-    type: 'UPVOTE',
+    type: 'VOTE',
     id,
-    voteStatus
-  }
-}
-
-export var downvote = (id, voteStatus) => {
-  return {
-    type: 'DOWNVOTE',
-    id,
-    voteStatus
+    voteStatus,
+    score
   }
 }
 
@@ -99,7 +92,7 @@ export var newQuestion = (title, text, peers, answered) => {
       var size = peers;
       if (size > 4) size = 4;
       var users = getState().users.sort(function(){return 0.5 - Math.random()}).slice(0, size);
-      users.map((user)=>{user.score=1;user.voteStatus=""});
+      users.map((user)=>{user.score=1;user.voteStatus={upvoted:false,downvoted:false}});
       dispatch(addQuestion('Anonymous', title, text, peers, users, answered));
     }
   }

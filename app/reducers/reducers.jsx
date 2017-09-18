@@ -46,7 +46,10 @@ export var questionsReducer = (state=[], action) => {
           follow: false,
           submitted: moment().unix(),
           users: action.users,
-          voteStatus: {upvoted:false,downvoted:false}
+          voteStatus: {upvoted:false,downvoted:false},
+          [uuid()]: {
+            test: 'something'
+          }
         }
       ];
     case 'ADD_QUESTIONS':
@@ -126,8 +129,25 @@ export var questionsReducer = (state=[], action) => {
   }
 }
 
-export var usersReducer = (state=[], action) => {
+export var usersReducer = (state={ byID: {}, allIDs: [] }, action) => {
   switch(action.type) {
+    case 'ADD_USER':
+      var id = uuid();
+      return {
+        byID: {
+          ...state.byID,
+          [id]: {
+            // DEMO VALUES
+            id,
+            image: action.image,
+            name: action.name
+          }
+        },
+        allIDs: [
+          ...state.allIDs,
+          id
+        ]
+      }
     case 'NEW_USER':
       return [
         ...state,
@@ -138,6 +158,33 @@ export var usersReducer = (state=[], action) => {
           name: action.name // FETCH USERNAME FROM DATABASE
         }
       ]
+    case 'LOAD_USERS':
+      return {
+        ...action.users
+      }
+    default:
+      return state;
+  }
+}
+
+export var commentReducer = (state={ byID: {}, allIDs: [] }, action) => {
+  switch (action.type) {
+    case 'ADD_COMMENT':
+      var id = uuid();
+      return {
+        byID: {
+          ...state.byID,
+          [id]: {
+            id,
+            author: action.user,
+            text: action.text
+          }
+        },
+        allIDs: [
+          ...state.allIDs,
+          id
+        ]
+      }
     default:
       return state;
   }

@@ -1,5 +1,5 @@
 import * as redux from 'redux';
-var {searchQuestionsReducer, filterReducer, questionsReducer, sortReducer, usersReducer, modalReducer, questionIDReducer} = require('reducers');
+var {searchQuestionsReducer, filterReducer, questionsReducer, sortReducer, usersReducer, commentReducer, modalReducer, questionIDReducer} = require('reducers');
 import thunk from 'redux-thunk';
 
 export var configure = (initialState = {}) => {
@@ -9,6 +9,7 @@ export var configure = (initialState = {}) => {
     sortBy: sortReducer,
     questions: questionsReducer,
     users: usersReducer,
+    comments: commentReducer,
     modal: modalReducer,
     questionID: questionIDReducer
   })

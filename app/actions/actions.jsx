@@ -26,9 +26,16 @@ export var addQuestions = (questions) => {
   }
 }
 
+export var addUsers = (users) => {
+  return {
+    type: 'LOAD_USERS',
+    users
+  }
+}
+
 export var addUser = (name, image) => {
   return {
-    type: 'NEW_USER',
+    type: 'ADD_USER',
     name,
     image
   }
@@ -62,6 +69,14 @@ export var addQuestion = (author, title, text, peers, users, answered) => {
   }
 }
 
+export var addComment = (user, text) => {
+  return {
+    type: 'ADD_COMMENT',
+    user,
+    text
+  }
+}
+
 // Creating a fake user database (6 users) for demonstration purposes
 export var createUserDatabase = () => {
   var names = ['Elon', 'Selena', 'Jacob', 'Andrew', 'Barbra', 'Beth', 'Eva', 'Gary'];
@@ -82,6 +97,8 @@ export var createUserDatabase = () => {
   }
 }
 
+
+
 // For demo purposes
 export var newQuestion = (title, text, peers, answered) => {
   return (dispatch, getState) => {
@@ -91,9 +108,11 @@ export var newQuestion = (title, text, peers, answered) => {
     else if (peers > 0) {
       var size = peers;
       if (size > 4) size = 4;
-      var users = getState().users.sort(function(){return 0.5 - Math.random()}).slice(0, size);
-      users.map((user)=>{user.score=1;user.voteStatus={upvoted:false,downvoted:false}});
+      var users = getState().users.allIDs.sort(function(){return 0.5 - Math.random()}).slice(0, size);
       dispatch(addQuestion('Anonymous', title, text, peers, users, answered));
+      // var users = getState().users.sort(function(){return 0.5 - Math.random()}).slice(0, size);
+      // users.map((user)=>{user.score=1;user.voteStatus={upvoted:false,downvoted:false}});
+      // dispatch(addQuestion('Anonymous', title, text, peers, users, answered));
     }
   }
 }

@@ -1,10 +1,11 @@
 import React from 'react';
 import Voting from 'Voting';
+import {connect} from 'react-redux';
 
-export default class Comment extends React.Component {
+export class Comment extends React.Component {
   render() {
     var {id, name, image, score, hasChild, voteStatus} = this.props;
-
+    console.log(this.props.users);
     var reply = ()=>{
       if(hasChild){
         return(
@@ -57,3 +58,11 @@ export default class Comment extends React.Component {
     );
   }
 }
+
+export default connect(
+  (state) => {
+    return {
+      users: state.users
+    }
+  }
+)(Comment);

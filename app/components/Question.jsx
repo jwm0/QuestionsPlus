@@ -27,10 +27,10 @@ export class Question extends React.Component {
     var renderPeers = () => {
       return users.map((user, i) => {
         if(arrayLen == i+1){
-          return (<Peer key={user.id} {...user} answered={answered}/>);
+          return (<Peer key={user} id={user} answered={answered}/>);
         }
         else{
-          return (<Peer key={user.id} {...user}/>);
+          return (<Peer key={user} id={user} {...user}/>);
         }
       });
     };

@@ -1,4 +1,5 @@
 var $ = require('jquery');
+import * as actions from 'actions';
 
 module.exports = {
   setQuestions: function (questions) {
@@ -6,6 +7,10 @@ module.exports = {
       localStorage.setItem('questions', JSON.stringify(questions));
       return questions;
     }
+  },
+  createUserDatabase: function (users) {
+    localStorage.setItem('users', JSON.stringify(users));
+    return users;
   },
   getQuestions: function () {
     var stringQuestions = localStorage.getItem('questions');
@@ -16,6 +21,15 @@ module.exports = {
     } catch (e) {}
 
     return $.isArray(questions) ? questions : [];
+  },
+  getUsers: function () {
+    var stringUsers = localStorage.getItem('users');
+    var users = {};
+
+    try {
+      users = JSON.parse(stringUsers);
+    } catch (e) {}
+    return users;
   },
   filterQuestions: function (questions, searchText, sortBy, filter) {
     var filteredQuestions = questions;

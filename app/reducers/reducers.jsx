@@ -65,27 +65,62 @@ export var questionsReducer = (state=[], action) => {
         return question;
       });
     case 'VOTE':
-    return state.map((question)=>{
-            question.users.map((user)=>{
-              if (user.id == action.id) {
-                console.log('ohey', user.id);
-                return {
-                  ...user,
+      return state.map((question)=>{
+        question.users = question.users.map((user)=>{
+                if (user.id == action.id) {
+                  return {
+                      ...user,
+                      voteStatus: action.voteStatus,
+                      score: action.score
+                    }
+                  }
+                  return user;
+                }
+        );
+        if (question.id == action.id) {
+          return {
+                  ...question,
                   voteStatus: action.voteStatus,
-                  score: 100
+                  score: action.score
                 }
               }
+              return question;
             });
-            if (question.id == action.id) {
-              return {
-                ...question,
-                voteStatus: action.voteStatus,
-                score: action.score
+    case 'VOTE2':
+      var updated = false;
+      for (var i = 0; i < state.length; i++) {
+          if (state[i].id === action.id) {
+              state[i].score = action.score;
+              break;
+          }
+          for (var j = 0; j < state[i].users.length; j++) {
+              if (state[i].users[j].id === action.id) {
+                  state[i].users[j].score = action.score;
+                  updated = true;
+                  break;
               }
-            }
-            console.log('shit');
-            return question;
-          });
+          }
+          if (updated) { break; }
+      }
+      return state;
+    case 'VOTE3':
+      for (var i = 0; i< state.length; i++) {
+        if (state[i].id === action.superID) {
+          if (state[i].id === action.id) {
+              state[i].score = action.score;
+              break;
+          }
+          for (var j = 0; j < state[i].users.length; j++) {
+              if (state[i].users[j].id === action.id) {
+                  state[i].users[j].score = action.score;
+                  updated = true;
+                  break;
+              }
+          }
+        }
+        if (updated) { break; }
+      }
+      return state;
     default:
       return state;
   }

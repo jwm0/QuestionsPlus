@@ -82,7 +82,7 @@ export var createUserDatabase = () => {
   }
 }
 
-// For demo purposes, we create a...
+// For demo purposes
 export var newQuestion = (title, text, peers, answered) => {
   return (dispatch, getState) => {
     if (peers == 0) {

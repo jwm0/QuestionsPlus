@@ -15,7 +15,7 @@ export class QuestionList extends React.Component {
     }
   }
   handleClick(){
-    if (this.state.size<this.props.questions.length) {
+    if (this.state.size<this.props.questions.allIDs.length) {
       this.setState({
         size: this.state.size+3
       });
@@ -24,10 +24,9 @@ export class QuestionList extends React.Component {
   render () {
     var {questions, filter, searchText, sortBy} = this.props;
     var {size} = this.state;
-    questions = QuestionAPI.filterQuestions(questions, searchText, sortBy, filter);
-
+    var questionIDs = QuestionAPI.filterQuestions(questions, searchText, sortBy, filter);
     var renderQuestions = () => {
-      if (questions.length == 0 && searchText == "") {
+      if (questionIDs.length == 0 && searchText == "") {
         return (
           <span className="text-center" style={{display:'block;padding-top:5rem'}}>
             <h1>whoops... nothing here</h1>
@@ -35,14 +34,14 @@ export class QuestionList extends React.Component {
           </span>
         );
       };
-      return questions.slice(0, size).map((question) => {
+      return questionIDs.slice(0, size).map((questionID) => {
         return (
-          <Question key={question.id} {...question}/>
+          <Question key={questionID} {...questions.byID[questionID]}/>
         );
       });
     };
     var renderMoreQuestionsButton = () => {
-      if(size<questions.length){
+      if(size<questionIDs.length){
       return (
         <div className="large-8 medium-10 small-12 small-centered footerContainer" onClick={this.handleClick.bind(this)}>
           <h3>load more questions</h3>
@@ -57,7 +56,7 @@ export class QuestionList extends React.Component {
         else return "results"})();
         return (
           <span className="text-center" style={{display:'block;padding-top:1rem'}}>
-            <p>{questions.length} search {result} for "{searchText}"</p>
+            <p>{questionIDs.length} search {result} for "{searchText}"</p>
           </span>
         );
       }

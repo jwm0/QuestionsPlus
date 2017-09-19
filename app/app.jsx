@@ -16,17 +16,19 @@ store.subscribe(() => {
   QuestionAPI.setQuestions(state.questions);
 });
 
-// load question from local storage
-var initialQuestions = QuestionAPI.getQuestions();
-store.dispatch(actions.addQuestions(initialQuestions));
+var users = QuestionAPI.getUsers();
 
 // ==== DEMO ONLY ====
 // Check if a user database exists, otherwise create one
-var users = QuestionAPI.getUsers();
 if ($.isEmptyObject(users)) {
   store.dispatch(actions.createUserDatabase(6));
+  // save to local storage
   QuestionAPI.createUserDatabase(store.getState().users);
 }
+
+// load question and users from local storage
+var initialQuestions = QuestionAPI.getQuestions();
+store.dispatch(actions.addQuestions(initialQuestions));
 store.dispatch(actions.addUsers(users));
 
 

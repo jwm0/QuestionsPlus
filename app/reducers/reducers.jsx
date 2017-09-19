@@ -28,8 +28,34 @@ export var sortReducer = (state='recent', action) => {
   }
 }
 
-export var questionsReducer = (state=[], action) => {
+export var questionsReducer = (state={ byID: {}, allIDs: [] }, action) => {
   switch(action.type){
+    case 'ADD_QUESTION2':
+      var id = uuid();
+      return {
+        byID: {
+          ...state.byID,
+          [id]: {
+            id,
+            author: action.author,
+            title: action.title,
+            text: action.text,
+            score: 1,
+            related: Math.floor((Math.random() * 10) + 1),
+            peers: action.peers,
+            conversations: Math.floor((Math.random() * 10) + 1),
+            answered: action.answered,
+            follow: false,
+            submitted: moment().unix(),
+            users: action.users,
+            comments: action.comments
+          }
+        },
+        allIDs: [
+          ...state.allIDs,
+          id
+        ]
+      }
     case 'ADD_QUESTION':
       return [
         ...state,
@@ -46,17 +72,12 @@ export var questionsReducer = (state=[], action) => {
           follow: false,
           submitted: moment().unix(),
           users: action.users,
-          voteStatus: {upvoted:false,downvoted:false},
-          [uuid()]: {
-            test: 'something'
-          }
+          comments: action.comments,
+          voteStatus: {upvoted:false,downvoted:false}
         }
       ];
     case 'ADD_QUESTIONS':
-      return [
-        ...state,
-        ...action.questions
-      ];
+      return action.questions;
     case 'TRIGGER_FOLLOW':
       return state.map((question)=>{
         if (question.id == action.id) {
@@ -170,19 +191,19 @@ export var usersReducer = (state={ byID: {}, allIDs: [] }, action) => {
 export var commentReducer = (state={ byID: {}, allIDs: [] }, action) => {
   switch (action.type) {
     case 'ADD_COMMENT':
-      var id = uuid();
       return {
         byID: {
           ...state.byID,
-          [id]: {
-            id,
+          [action.id]: {
+            id: action.id,
             author: action.user,
-            text: action.text
+            text: action.text,
+            score: 1
           }
         },
         allIDs: [
           ...state.allIDs,
-          id
+          action.id
         ]
       }
     default:

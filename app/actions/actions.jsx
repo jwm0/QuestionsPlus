@@ -1,3 +1,5 @@
+var uuid = require('node-uuid');
+
 export var setSearchText = (searchText) => {
   return {
     type: 'SET_SEARCH_TEXT',
@@ -57,23 +59,34 @@ export var vote = (id, score, voteStatus) => {
   }
 }
 
-export var addQuestion = (author, title, text, peers, users, answered) => {
+export var addQuestion = (author, title, text, peers, users, answered, comments) => {
   return {
-    type: 'ADD_QUESTION',
+    type: 'ADD_QUESTION2',
     peers,
     author,
     title,
     text,
     users,
-    answered
+    answered,
+    comments
   }
 }
 
 export var addComment = (user, text) => {
+  var id = uuid();
   return {
     type: 'ADD_COMMENT',
     user,
-    text
+    text,
+    id
+  }
+}
+
+export var newComment = (user, text) => {
+  var id = uuid();
+  return (dispatch, getState) => {
+    dispatch(addComment(user, text));
+    //dispatch()
   }
 }
 
@@ -109,6 +122,9 @@ export var newQuestion = (title, text, peers, answered) => {
       var size = peers;
       if (size > 4) size = 4;
       var users = getState().users.allIDs.sort(function(){return 0.5 - Math.random()}).slice(0, size);
+      for (var i=0; i<users.length; i++){
+        dispatch(addComment(users[i], 'Test comment #' + i));
+      }
       dispatch(addQuestion('Anonymous', title, text, peers, users, answered));
       // var users = getState().users.sort(function(){return 0.5 - Math.random()}).slice(0, size);
       // users.map((user)=>{user.score=1;user.voteStatus={upvoted:false,downvoted:false}});

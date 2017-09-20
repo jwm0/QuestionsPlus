@@ -59,7 +59,7 @@ export var vote = (id, score, voteStatus) => {
   }
 }
 
-export var addQuestion = (author, title, text, peers, users, answered, comments) => {
+export var addQuestion = (id, author, title, text, peers, users, answered, comments) => {
   return {
     type: 'ADD_QUESTION2',
     peers,
@@ -68,17 +68,26 @@ export var addQuestion = (author, title, text, peers, users, answered, comments)
     text,
     users,
     answered,
-    comments
+    comments,
+    id
   }
 }
 
-export var addComment = (user, text) => {
+export var addComment = (questionid, user, text) => {
   var id = uuid();
   return {
     type: 'ADD_COMMENT',
     user,
     text,
-    id
+    id,
+    questionid
+  }
+}
+
+export var addComments = (comments) => {
+  return {
+    type: 'LOAD_COMMENTS',
+    comments
   }
 }
 
@@ -114,18 +123,21 @@ export var createUserDatabase = () => {
 
 // For demo purposes
 export var newQuestion = (title, text, peers, answered) => {
+  // Passing id as argument in order to simulate user interaction inside a Post
+  // otherwise id should be set in a reducer
+  var id = uuid();
   return (dispatch, getState) => {
     if (peers == 0) {
-      dispatch(addQuestion('Anonymous', title, text, peers, [], false));
+      dispatch(addQuestion(id, 'Anonymous', title, text, peers, [], false));
     }
     else if (peers > 0) {
       var size = peers;
       if (size > 4) size = 4;
       var users = getState().users.allIDs.sort(function(){return 0.5 - Math.random()}).slice(0, size);
+      dispatch(addQuestion(id, 'Anonymous', title, text, peers, users, answered));
       for (var i=0; i<users.length; i++){
-        dispatch(addComment(users[i], 'Test comment #' + i));
+        dispatch(addComment(id, users[i], 'Test comment #' + i));
       }
-      dispatch(addQuestion('Anonymous', title, text, peers, users, answered));
       // var users = getState().users.sort(function(){return 0.5 - Math.random()}).slice(0, size);
       // users.map((user)=>{user.score=1;user.voteStatus={upvoted:false,downvoted:false}});
       // dispatch(addQuestion('Anonymous', title, text, peers, users, answered));

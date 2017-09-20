@@ -35,8 +35,8 @@ export var questionsReducer = (state={ byID: {}, allIDs: [] }, action) => {
       return {
         byID: {
           ...state.byID,
-          [id]: {
-            id,
+          [action.id]: {
+            id: action.id,
             author: action.author,
             title: action.title,
             text: action.text,
@@ -48,12 +48,12 @@ export var questionsReducer = (state={ byID: {}, allIDs: [] }, action) => {
             follow: false,
             submitted: moment().unix(),
             users: action.users,
-            comments: action.comments
+            comments: []
           }
         },
         allIDs: [
           ...state.allIDs,
-          id
+          action.id
         ]
       }
     case 'ADD_QUESTION':
@@ -77,7 +77,23 @@ export var questionsReducer = (state={ byID: {}, allIDs: [] }, action) => {
         }
       ];
     case 'ADD_QUESTIONS':
-      return action.questions;
+      return {
+        ...action.questions
+      }
+    case 'ADD_COMMENT':
+      return {
+        byID: {
+          ...state.byID,
+          [action.questionid]: {
+            ...state.byID[action.questionid],
+            comments: [
+              ...state.byID[action.questionid].comments,
+              action.id
+            ]
+          }
+        },
+        allIDs: [...state.allIDs]
+      }
     case 'TRIGGER_FOLLOW':
       return state.map((question)=>{
         if (question.id == action.id) {
@@ -205,6 +221,10 @@ export var commentReducer = (state={ byID: {}, allIDs: [] }, action) => {
           ...state.allIDs,
           action.id
         ]
+      }
+    case 'LOAD_COMMENTS':
+      return {
+        ...action.comments
       }
     default:
       return state;

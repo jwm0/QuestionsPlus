@@ -12,6 +12,10 @@ module.exports = {
     localStorage.setItem('users', JSON.stringify(users));
     return users;
   },
+  setComments: function (comments) {
+    localStorage.setItem('comments', JSON.stringify(comments));
+    return comments;
+  },
   getQuestions: function () {
     var stringQuestions = localStorage.getItem('questions');
     var questions = {};
@@ -30,6 +34,15 @@ module.exports = {
       users = JSON.parse(stringUsers);
     } catch (e) {}
     return users;
+  },
+  getComments: function () {
+    var stringComments = localStorage.getItem('comments');
+    var comments = {};
+
+    try {
+      comments = JSON.parse(stringComments);
+    } catch (e) {}
+    return $.isEmptyObject(comments) ? {byID: {}, allIDs: {}} : comments;
   },
   filterQuestions: function (questions, searchText, sortBy, filter) {
     // filteredQuestions contains an array of question IDs

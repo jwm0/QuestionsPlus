@@ -19,18 +19,17 @@ export class Question extends React.Component {
     this.props.dispatch(actions.followQuestion(this.props.id));
   }
   render () {
-    var {id, author, title, text, score, peers, related, conversations, users, answered, isPost, follow} = this.props;
-
+    var {id, author, title, text, score, peers, related, conversations, users, answered, isPost, follow, comments} = this.props;
     const followButton = follow ? "unfollow" : "follow";
     const arrayLen = users.length;
 
     var renderPeers = () => {
-      return users.map((user, i) => {
+      return comments.map((comment, i) => {
         if(arrayLen == i+1){
-          return (<Peer key={user} id={user} answered={answered}/>);
+          return (<Peer key={comment} id={comment} answered={answered}/>);
         }
         else{
-          return (<Peer key={user} id={user} {...user}/>);
+          return (<Peer key={comment} id={comment}/>);
         }
       });
     };

@@ -13,14 +13,14 @@ export class Peer extends React.Component {
     this.props.dispatch(actions.openModal(name, image));
   }
   render () {
-    var {answered, id, users} = this.props;
-    var image = users.byID;
+    var {answered, id, users, comments} = this.props;
+    var image = users.byID[comments.byID[id].author].image;
     var renderPeer = () => {
       if (answered) {
         return (
           <div style={{width:'20%'}}>
             <div className="question-profile">
-              <div className="picture" style={{backgroundImage: `url(${users.byID[id].image})`}} onClick={this.handlePictureClick}></div>
+              <div className="picture" style={{backgroundImage: `url(${image})`}} onClick={this.handlePictureClick}></div>
               <div className="peer-footer">
                 <div className="text-footer" style={{'borderTop': '2px solid rgba(0,0,0,0.6)'}}><b>ANSWERED</b></div>
                 <span className="profile-dot" style={{backgroundColor:'#222'}}></span>
@@ -32,7 +32,7 @@ export class Peer extends React.Component {
         return (
           <div style={{width:'20%'}}>
             <div className="question-profile">
-              <div className="picture" style={{backgroundImage: `url(${users.byID[id].image})`}} onClick={this.handlePictureClick}></div>
+              <div className="picture" style={{backgroundImage: `url(${image})`}} onClick={this.handlePictureClick}></div>
               <div className="peer-footer">
                 <div className="text-footer">COMMENTED</div>
                 <span className="profile-dot"></span>
@@ -51,6 +51,7 @@ export class Peer extends React.Component {
 export default connect(
   (state) => {
     return {
+      comments: state.comments,
       users: state.users
     }
   }

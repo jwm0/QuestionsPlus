@@ -14,22 +14,30 @@ store.subscribe(() => {
   var state = store.getState();
   console.log('New state', state);
   QuestionAPI.setQuestions(state.questions);
+  QuestionAPI.setComments(state.comments);
 });
 
-var users = QuestionAPI.getUsers();
-
 // ==== DEMO ONLY ====
-// Check if a user database exists, otherwise create one
-if ($.isEmptyObject(users)) {
+// Check if a user database exists, otherwise create a fake one
+if ($.isEmptyObject(QuestionAPI.getUsers())) {
   store.dispatch(actions.createUserDatabase(6));
   // save to local storage
   QuestionAPI.createUserDatabase(store.getState().users);
 }
+// ==== DEMO ONLY ====
+
+var users = QuestionAPI.getUsers();
+var comments = QuestionAPI.getComments();
+var initialQuestions = QuestionAPI.getQuestions();
 
 // load question and users from local storage
-var initialQuestions = QuestionAPI.getQuestions();
-store.dispatch(actions.addQuestions(initialQuestions));
 store.dispatch(actions.addUsers(users));
+store.dispatch(actions.addComments(comments));
+store.dispatch(actions.addQuestions(initialQuestions));
+
+
+
+
 
 
 

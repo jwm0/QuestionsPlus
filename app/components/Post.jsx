@@ -6,19 +6,31 @@ import {connect} from 'react-redux';
 
 export class Post extends React.Component {
   render() {
-    var {questions, questionID} = this.props;
+    var {questions} = this.props;
+    // Get question id from url
+    var path = window.location.href.split("/");
+    path = path[path.length - 2];
 
-    var question = questions.find((question)=>{
-      return questionID == question.id;
+    // Check if questions exists
+    var questionID = questions.allIDs.find((question)=>{
+      return question == path;
     });
+    if (questionID === undefined) {
+      return (
+        <div>
+          <h1>404: QUESTION NOT FOUND</h1>
+        </div>
+      )
+    }
 
-    var peer = (()=>{if(question.users.length==1) return "peer"
+
+    var peer = (()=>{if(questions.byID[questionID].comments.length==1) return "peer"
     else return "peers"})();
 
     var renderQuestion = () => {
       return (
         <div>
-          <Question {...question} isPost={true}/>
+          <Question {...questions.byID[questionID]} isPost={true}/>
           <div className="button-label"><button className="button-custom" style={{margin:0}}>GIVE new answer</button></div>
         </div>
       )
@@ -28,8 +40,8 @@ export class Post extends React.Component {
         <Nav isMain={false}/>
         <div className="medium-centered large-11 medium-12" style={{backgroundColor:'#fafafa;min-height:80vh'}}>
           {renderQuestion()}
-          <div className="text-center" style={{marginBottom:'1rem'}}>{question.users.length} {peer} already answered {question.author}</div>
-          <CommentList users={question.users}/>
+          <div className="text-center" style={{marginBottom:'1rem'}}>{questions.byID[questionID].comments.length} {peer} already answered {questions.byID[questionID].author}</div>
+          {/* <CommentList users={question.users}/> */}
         </div>
       </div>
     )

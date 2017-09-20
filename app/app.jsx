@@ -51,7 +51,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={hashHistory}>
       <Route path="/" component={Main}>
-        <Route path="/comments" component={Post}/>
+        <Route path="comments/:questionid" component={Post}/>
         <IndexRoute component={QuestionList}/>
       </Route>
     </Router>

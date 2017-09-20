@@ -22,6 +22,14 @@ export class Question extends React.Component {
     var {id, author, title, text, score, peers, related, conversations, users, answered, isPost, follow, comments} = this.props;
     const followButton = follow ? "unfollow" : "follow";
     const arrayLen = users.length;
+    const link = `/comments/${id}/`;
+
+    var test = 'something/id';
+    //test = test.split("/").pop();
+    test = test.substring(test.indexOf("something/") + 1);
+    console.log(test);
+    console.log(window.location.pathname);
+
 
     var renderPeers = () => {
       return comments.map((comment, i) => {
@@ -34,6 +42,8 @@ export class Question extends React.Component {
       });
     };
 
+
+
     const QuestionDefault = () => {
       return(
         <div className="large-8 medium-10 small-12 small-centered question">
@@ -42,7 +52,7 @@ export class Question extends React.Component {
               <div className="picture-wrapper"><div className="picture"></div></div>
               <div className="header-wrapper">
                 <h3>{author} <span className="span-style">IS ASKING:</span></h3>
-                <Link to="/comments" onClick={this.handleRedirect}><h3 style={{'margin':'0;font-style:italic'}}>{title}</h3></Link>
+                <Link to={link} onClick={this.handleRedirect}><h3 style={{'margin':'0;font-style:italic'}}>{title}</h3></Link>
               </div>
             </div>
             <div className="question-bottom">

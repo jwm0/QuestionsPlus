@@ -9,11 +9,7 @@ import Voting from 'Voting';
 export class Question extends React.Component {
   constructor () {
     super();
-    this.handleRedirect = this.handleRedirect.bind(this);
     this.handleFollow = this.handleFollow.bind(this);
-  }
-  handleRedirect () {
-    this.props.dispatch(actions.setCurrentQuestion(this.props.id));
   }
   handleFollow () {
     this.props.dispatch(actions.followQuestion(this.props.id));
@@ -23,12 +19,6 @@ export class Question extends React.Component {
     const followButton = follow ? "unfollow" : "follow";
     const arrayLen = users.length;
     const link = `/comments/${id}/`;
-
-    var test = 'something/id';
-    //test = test.split("/").pop();
-    test = test.substring(test.indexOf("something/") + 1);
-    console.log(test);
-    console.log(window.location.pathname);
 
 
     var renderPeers = () => {

@@ -4,8 +4,7 @@ import {connect} from 'react-redux';
 
 export class Comment extends React.Component {
   render() {
-    var {id, name, image, score, hasChild, voteStatus} = this.props;
-    console.log(this.props.users);
+    var {id, authorName, image, text, score, hasChild} = this.props;
     var reply = ()=>{
       if(hasChild){
         return(
@@ -40,11 +39,11 @@ export class Comment extends React.Component {
             <div className="picture-wrapper"><div className="picture" style={{backgroundImage: `url(${image})`}}></div></div>
             <div className="comment-section">
               <div className="comment-top">
-                {name} <span className="id1">COMMENTED IT &#9679;</span> <span className="id2">yesterday</span>
+                {authorName} <span className="id1">COMMENTED IT &#9679;</span> <span className="id2">yesterday</span>
               </div>
               <div className="comment-bottom">
                 <div className="comment-left">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam pellentesque congue dolor a ultrices. Nulla facilisi. Donec commodo pretium leo, eu laoreet justo.
+                  {text}
                 </div>
                 <div className="comment-right">
                   <Voting id={id} score={score}/>

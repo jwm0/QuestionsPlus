@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import * as actions from 'actions';
 
+var currentScore;
 export class Voting extends React.Component {
   constructor () {
     super();
@@ -17,13 +18,12 @@ export class Voting extends React.Component {
       upvoted: !this.state.upvoted,
       downvoted: false
     });
-    var {score} = this.props;
-    var {upvoted, downvoted} = this.state;
-
-    if(!upvoted && !downvoted) score++;
-    else if(!downvoted && upvoted) score--;
-    else if (downvoted && !upvoted) score+=2;
-    this.props.dispatch(actions.vote(this.props.id, score, this.state));
+    // var {upvoted, downvoted} = this.state;
+    //
+    // if(!upvoted && !downvoted) score++;
+    // else if(!downvoted && upvoted) score--;
+    // else if (downvoted && !upvoted) score+=2;
+    // this.props.dispatch(actions.vote(this.props.id, score, this.state));
   }
   downvote () {
     this.setState({
@@ -31,13 +31,24 @@ export class Voting extends React.Component {
       downvoted: !this.state.downvoted
     });
     //---
-    var {score} = this.props;
-    var {upvoted, downvoted} = this.state;
-
-    if(!upvoted && !downvoted) score--;
-    else if(!upvoted && downvoted) score++;
-    else if (upvoted && !downvoted) score-=2;
-    this.props.dispatch(actions.vote(this.props.id, score, this.state));
+    // var {score} = this.props;
+    // var {upvoted, downvoted} = this.state;
+    //
+    // if(!upvoted && !downvoted) score--;
+    // else if(!upvoted && downvoted) score++;
+    // else if (upvoted && !downvoted) score-=2;
+    // this.props.dispatch(actions.vote(this.props.id, score, this.state));
+  }
+  componentDidUpdate () {
+    this.props.dispatch(actions.vote(this.props.id, currentScore, this.state));
+  }
+  shouldComponentUpdate (nextProps, nextState) {
+    console.log(this.props.score);
+    console.log(nextProps.score);
+    console.log(this.state);
+    console.log(nextState);
+    if (this.state === nextState) return false;
+    return true;
   }
   render () {
     var {score} = this.props;
@@ -45,13 +56,19 @@ export class Voting extends React.Component {
     var upvote = 'upvote';
     var downvote = 'downvote';
 
-    if(upvoted) upvote = 'upvote-active';
-    else if(downvoted) downvote = 'downvote-active';
-
+    if(upvoted) {
+      score++;
+      upvote = 'upvote-active';
+    }
+    else if(downvoted) {
+      score--;
+      downvote = 'downvote-active';
+    }
+    currentScore = score;
     return(
       <div className="vote">
         <div className={upvote} onClick={this.upvote}></div>
-        <div className="score">{score}</div>
+        <div className="score">{currentScore}</div>
         <div className={downvote} onClick={this.downvote}></div>
       </div>
     );

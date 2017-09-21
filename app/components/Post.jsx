@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 
 export class Post extends React.Component {
   render() {
-    var {questions} = this.props;
+    var {questions, users, comments} = this.props;
     // Get question id from url
     var path = window.location.href.split("/");
     path = path[path.length - 2];
@@ -23,6 +23,13 @@ export class Post extends React.Component {
       )
     }
 
+    var commentIDs = questions.byID[questionID].comments;
+    var commentObjects = [];
+    for (var i=0; i<commentIDs.length; i++){
+      commentObjects.push(comments.byID[commentIDs[i]]);
+      commentObjects[i].image = users.byID[commentObjects[i].author].image;
+      commentObjects[i].authorName = users.byID[commentObjects[i].author].name;
+    }
 
     var peer = (()=>{if(questions.byID[questionID].comments.length==1) return "peer"
     else return "peers"})();
@@ -41,7 +48,7 @@ export class Post extends React.Component {
         <div className="medium-centered large-11 medium-12" style={{backgroundColor:'#fafafa;min-height:80vh'}}>
           {renderQuestion()}
           <div className="text-center" style={{marginBottom:'1rem'}}>{questions.byID[questionID].comments.length} {peer} already answered {questions.byID[questionID].author}</div>
-          {/* <CommentList users={question.users}/> */}
+          <CommentList comments={commentObjects}/>
         </div>
       </div>
     )

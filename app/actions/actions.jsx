@@ -52,7 +52,7 @@ export var followQuestion = (id) => {
 
 export var vote = (id, score, voteStatus) => {
   return {
-    type: 'VOTE',
+    type: 'VOTE4',
     id,
     voteStatus,
     score
@@ -156,12 +156,5 @@ export var openModal = (user, image) => {
 export var hideModal = () => {
   return {
     type: 'HIDE_MODAL'
-  }
-}
-
-export var setCurrentQuestion = (id) => {
-  return {
-    type: 'SET_CURRENT_QUESTION',
-    id
   }
 }

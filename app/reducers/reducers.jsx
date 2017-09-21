@@ -161,6 +161,17 @@ export var questionsReducer = (state={ byID: {}, allIDs: [] }, action) => {
         if (updated) { break; }
       }
       return state;
+    case 'VOTE4':
+      return {
+        byID: {
+          ...state.byID,
+          [action.id]: {
+            ...state.byID[action.id],
+            score: action.score
+          }
+        },
+        allIDs: [...state.allIDs]
+      }
     default:
       return state;
   }
@@ -243,15 +254,6 @@ export var modalReducer = (state={showModal:false, user: "Anonymous", image: "ur
       return {
         showModal: false
       };
-    default:
-      return state;
-  }
-}
-
-export var questionIDReducer = (state = null, action)=>{
-  switch(action.type) {
-    case 'SET_CURRENT_QUESTION':
-      return action.id;
     default:
       return state;
   }

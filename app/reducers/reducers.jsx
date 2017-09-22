@@ -95,15 +95,16 @@ export var questionsReducer = (state={ byID: {}, allIDs: [] }, action) => {
         allIDs: [...state.allIDs]
       }
     case 'TRIGGER_FOLLOW':
-      return state.map((question)=>{
-        if (question.id == action.id) {
-          return {
-            ...question,
-            follow: !question.follow
+      return {
+        byID: {
+          ...state.byID,
+          [action.id]: {
+            ...state.byID[action.id],
+            follow: !state.byID[action.id].follow
           }
-        }
-        return question;
-      });
+        },
+        allIDs: [...state.allIDs]
+      }
     case 'VOTE':
       return state.map((question)=>{
         question.users = question.users.map((user)=>{

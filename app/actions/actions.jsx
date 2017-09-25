@@ -145,7 +145,7 @@ export var newQuestion = (title, text, peers, answered) => {
   }
 }
 
-export var openModal = (user, image) => {
+export var openModal = (user = "Anonymous", image) => {
   return {
     type: 'OPEN_MODAL',
     user,

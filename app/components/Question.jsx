@@ -2,6 +2,7 @@ import React from 'react';
 import {Link, IndexLink} from 'react-router';
 import {connect} from 'react-redux';
 import * as actions from 'actions';
+import ProfilePicture from 'ProfilePicture';
 
 import Peer from 'Peer';
 import Voting from 'Voting';
@@ -39,7 +40,7 @@ export class Question extends React.Component {
         <div className="large-8 medium-10 small-12 small-centered question">
           <div className="question-left">
             <div className="question-top">
-              <div className="picture-wrapper"><div className="picture"></div></div>
+              <div className="picture-wrapper"><ProfilePicture/></div>
               <div className="header-wrapper">
                 <h3>{author} <span className="span-style">IS ASKING:</span></h3>
                 <Link to={link} onClick={this.handleRedirect}><h3 style={{'margin':'0;font-style:italic'}}>{title}</h3></Link>

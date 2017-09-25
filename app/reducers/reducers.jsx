@@ -243,7 +243,7 @@ export var commentReducer = (state={ byID: {}, allIDs: [] }, action) => {
   }
 }
 
-export var modalReducer = (state={showModal:false, user: "Anonymous", image: "url"}, action) => {
+export var modalReducer = (state={showModal:false, user: "Anonymous", image: "../img/blank.png"}, action) => {
   switch(action.type) {
     case 'OPEN_MODAL':
       return {

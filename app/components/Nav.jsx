@@ -10,6 +10,7 @@ export class Nav extends React.Component {
     super();
     this.handleTextChange = this.handleTextChange.bind(this);
     this.onNewQuestionSubmit = this.onNewQuestionSubmit.bind(this);
+    this.onHomeClick = this.onHomeClick.bind(this);
     this.state = {
       text: ""
     }
@@ -32,6 +33,10 @@ export class Nav extends React.Component {
     this.setState({
       text
     });
+  }
+  onHomeClick () {
+    this.props.dispatch(actions.setSearchText(""));
+    this.setState({text:""});
   }
   onNewQuestionSubmit () {
     var {dispatch} = this.props;
@@ -107,7 +112,7 @@ export class Nav extends React.Component {
               <div className="large-8 medium-10 small-12 small-centered">
                 <div className="top-bar" style={{backgroundColor:'#fff'}}>
                   <div className="bar">
-                    <div className="top-bar-left"><Link to="/"><span className="logo-text">QUESTIONS</span></Link><div className="logo" data-open="addQuestionModal">+</div></div>
+                    <div className="top-bar-left"><Link to="/" onClick={this.onHomeClick}><span className="logo-text">QUESTIONS</span></Link><div className="logo" data-open="addQuestionModal">+</div></div>
                     <div className="nav-bar">
                       <div><input style={{width:'auto;margin:0'}} name="questions-filter" type="radio" id="my_shelf" onChange={()=>{dispatch(actions.setFilter('my_shelf'))}}/><label htmlFor="my_shelf">My shelf</label></div>
                       <div><input style={{width:'auto;margin:0'}} name="questions-filter" type="radio" id="all_questions" onChange={()=>{dispatch(actions.setFilter('all'))}}/><label style={{marginRight:0}} htmlFor="all_questions">All questions</label></div>

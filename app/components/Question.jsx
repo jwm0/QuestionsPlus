@@ -84,7 +84,7 @@ export class Question extends React.Component {
         <div className="large-8 medium-10 small-12 small-centered question" style={{padding:'0;border:none'}}>
           <div style={{width:'100%'}}>
             <div className="question-top">
-              <div className="picture-wrapper"><div className="picture"></div></div>
+              <div className="picture-wrapper"><ProfilePicture/></div>
               <div className="header-wrapper">
                 <h3>{author} <span className="span-style">IS ASKING:</span></h3>
                 <Link to="/comments" onClick={this.handleRedirect}><h3 style={{'margin':'0;font-style:italic'}}>{title}</h3></Link>

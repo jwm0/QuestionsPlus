@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Route, Router, IndexRoute, hashHistory} from 'react-router';
 import {Provider} from 'react-redux';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import Main from 'Main';
 import QuestionList from 'QuestionList';
@@ -9,6 +10,7 @@ import Post from 'Post';
 var actions = require('actions');
 var store = require('configureStore').configure();
 var QuestionAPI = require('QuestionAPI');
+
 
 store.subscribe(() => {
   var state = store.getState();
@@ -37,7 +39,18 @@ store.dispatch(actions.addQuestions(initialQuestions));
 
 
 
-
+const App = () => (
+  <MuiThemeProvider>
+    <Provider store={store}>
+      <Router history={hashHistory}>
+        <Route path="/" component={Main}>
+          <Route path="comments/:questionid" component={Post}/>
+          <IndexRoute component={QuestionList}/>
+        </Route>
+      </Router>
+    </Provider>
+  </MuiThemeProvider>
+);
 
 
 
@@ -48,13 +61,6 @@ $(document).foundation();
 require('!style!css!sass!applicationStyles');
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Router history={hashHistory}>
-      <Route path="/" component={Main}>
-        <Route path="comments/:questionid" component={Post}/>
-        <IndexRoute component={QuestionList}/>
-      </Route>
-    </Router>
-  </Provider>,
+  <App/>,
   document.getElementById('app')
 );

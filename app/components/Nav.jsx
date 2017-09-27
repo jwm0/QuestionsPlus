@@ -4,6 +4,8 @@ import Search from 'Search';
 import {clearSearchText} from 'Search';
 import {connect} from 'react-redux';
 import * as actions from 'actions';
+import AnimatedInput from 'AnimatedInput';
+import Snackbar from 'material-ui/Snackbar';
 
 export class Nav extends React.Component {
   constructor() {
@@ -11,8 +13,10 @@ export class Nav extends React.Component {
     this.handleTextChange = this.handleTextChange.bind(this);
     this.onNewQuestionSubmit = this.onNewQuestionSubmit.bind(this);
     this.onHomeClick = this.onHomeClick.bind(this);
+    this.onNewQuestionClick = this.onNewQuestionClick.bind(this);
     this.state = {
-      text: ""
+      text: "",
+      open: false
     }
   }
   componentDidMount () {
@@ -23,11 +27,6 @@ export class Nav extends React.Component {
 
     // Create modal for adding questions -- FOR DEMO PURPOSES
     var addQuestionModal = new Foundation.Reveal($('#addQuestionModal'));
-    var that = this;
-    $(document).on("click", "#submit_btn", function(event){
-      event.preventDefault();
-      that.onNewQuestionSubmit();
-    });
   }
   handleTextChange (text) {
     this.setState({
@@ -35,8 +34,10 @@ export class Nav extends React.Component {
     });
   }
   onHomeClick () {
-    this.props.dispatch(actions.setSearchText(""));
-    this.setState({text:""});
+    window.location.reload();
+  }
+  onNewQuestionClick () {
+    this.child.onHandleClick();
   }
   onNewQuestionSubmit () {
     var {dispatch} = this.props;
@@ -52,43 +53,16 @@ export class Nav extends React.Component {
 
     // Reset search field
     dispatch(actions.setSearchText(""));
-    this.setState({text:""});
+    this.setState({text:"", open: true});
     // Check if title is present
     if(title.length > 0){
       dispatch(actions.newQuestion(title, text, peerCount, answered));
-      $('#addQuestionModal').foundation('close');
+      this.onNewQuestionClick();
     }
   }
   render () {
     var {text} = this.state;
     var {sortBy, dispatch} = this.props;
-    var renderAddQuestion = () => {
-      return (
-        <div className="reveal" id="addQuestionModal" data-reveal>
-          <h1>Ask a question!</h1>
-          <form>
-            <input type="text" ref="questionTitle" placeholder="Title"/>
-            <textarea ref="questionText" placeholder="Text"/>
-            <div className="demo-container">
-              <p>Peers involved:</p>
-              <input className="peerCount" type="number" min="0" defaultValue="0" ref="peerCount"/>
-              <p>Answered?</p>
-              <div className="switch">
-                <input className="switch-input" ref="answered" id="answered" type="checkbox"/>
-                <label className="switch-paddle" htmlFor="answered">
-                  <span className="switch-active" aria-hidden="true">Yes</span>
-                  <span className="switch-inactive" aria-hidden="true">No</span>
-                </label>
-              </div>
-            </div>
-            <button id="submit_btn" className="button expanded">Submit</button>
-          </form>
-          <button className="close-button" data-close="" aria-label="Close modal" type="button">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-      )
-    }
 
     const NavPost = ()=>{
       return(
@@ -112,7 +86,7 @@ export class Nav extends React.Component {
               <div className="large-8 medium-10 small-12 small-centered">
                 <div className="top-bar" style={{backgroundColor:'#fff'}}>
                   <div className="bar">
-                    <div className="top-bar-left"><Link to="/" onClick={this.onHomeClick}><span className="logo-text">QUESTIONS</span></Link><div className="logo" data-open="addQuestionModal">+</div></div>
+                    <div className="top-bar-left"><Link to="/" onClick={this.onHomeClick}><span className="logo-text">QUESTIONS</span></Link><div className="logo" onClick={this.onNewQuestionClick}>+</div></div>
                     <div className="nav-bar">
                       <div><input style={{width:'auto;margin:0'}} name="questions-filter" type="radio" id="my_shelf" onChange={()=>{dispatch(actions.setFilter('my_shelf'))}}/><label htmlFor="my_shelf">My shelf</label></div>
                       <div><input style={{width:'auto;margin:0'}} name="questions-filter" type="radio" id="all_questions" onChange={()=>{dispatch(actions.setFilter('all'))}}/><label style={{marginRight:0}} htmlFor="all_questions">All questions</label></div>
@@ -123,10 +97,36 @@ export class Nav extends React.Component {
                     </div>
                   </div>
                 </div>
+                <AnimatedInput onRef={ref => (this.child = ref)}>
+                  <div style={{height: '100%'}}>
+                    <h1>Ask a question!</h1>
+                    <form onSubmit={this.onNewQuestionSubmit}>
+                      <input type="text" ref="questionTitle" placeholder="Title"/>
+                      <textarea ref="questionText" placeholder="Text"/>
+                      <div className="demo-container">
+                        <p>Peers involved:</p>
+                        <input className="peerCount" type="number" min="0" defaultValue="0" ref="peerCount"/>
+                        <p>Answered?</p>
+                        <div className="switch">
+                          <input className="switch-input" ref="answered" id="answered" type="checkbox"/>
+                          <label className="switch-paddle" htmlFor="answered">
+                            <span className="switch-active" aria-hidden="true">Yes</span>
+                            <span className="switch-inactive" aria-hidden="true">No</span>
+                          </label>
+                        </div>
+                      </div>
+                      <button id="submit_btn" className="button expanded">Submit</button>
+                    </form>
+                  </div>
+                </AnimatedInput>
                 <Search text={text} onTextChange={this.handleTextChange}/>
               </div>
-            {renderAddQuestion()}
           </div>
+          <Snackbar
+            open={this.state.open}
+            message="Question submitted"
+            autoHideDuration={4000}
+          />
         </div>
       )
     }

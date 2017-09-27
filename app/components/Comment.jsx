@@ -1,6 +1,7 @@
 import React from 'react';
 import Voting from 'Voting';
 import {connect} from 'react-redux';
+import ProfilePicture from 'ProfilePicture';
 
 export class Comment extends React.Component {
   render() {
@@ -11,7 +12,7 @@ export class Comment extends React.Component {
           <div id="reply">
             <div className="large-8 medium-10 small-12 small-centered">
               <div className="reply-container">
-                <div className="picture-wrapper"><div className="picture"></div></div>
+                <div className="picture-wrapper"><ProfilePicture name="Andrew"/></div>
                 <div className="comment-section">
                   <div className="comment-top">
                     Andrew <span className="id1">COMMENTED IT &#9679;</span> <span className="id2">today</span>
@@ -36,7 +37,7 @@ export class Comment extends React.Component {
       <div>
         <div className="large-8 medium-10 small-12 small-centered">
           <div className="comment-container">
-            <div className="picture-wrapper"><div className="picture" style={{backgroundImage: `url(${image})`}}></div></div>
+            <div className="picture-wrapper"><ProfilePicture name={authorName} image={image}/></div>
             <div className="comment-section">
               <div className="comment-top">
                 {authorName} <span className="id1">COMMENTED IT &#9679;</span> <span className="id2">yesterday</span>

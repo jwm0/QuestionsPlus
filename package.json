@@ -33,6 +33,7 @@
     "karma-mocha-reporter": "^2.0.0",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.7.0",
+    "material-ui": "^0.19.2",
     "mocha": "^2.4.5",
     "moment": "^2.18.1",
     "node-sass": "^3.4.2",

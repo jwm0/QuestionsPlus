@@ -5,6 +5,9 @@ import Nav from 'Nav';
 import {connect} from 'react-redux';
 
 export class Post extends React.Component {
+  componentDidMount () {
+    window.scrollTo(0, 0)
+  }
   render() {
     var {questions, users, comments} = this.props;
     // Get question id from url

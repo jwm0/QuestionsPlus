@@ -1,49 +1,31 @@
 import React from 'react';
 
 export default class AnimatedInput extends React.Component {
-  constructor (props) {
-    super(props);
-    this.onHandleClick = this.onHandleClick.bind(this);
-    this.state = {
-      display: false,
-      open: false
-    };
-  }
-  componentDidMount() {
-    this.props.onRef(this);
-  }
-  componentWillUnmount() {
-    this.props.onRef(null);
-  }
-  onHandleClick () {
-    this.setState({display: !this.state.display, open: true});
-  }
   render () {
-    //let display = this.state.display ? 'flex' : 'none';
-    let test = this.state.display ? 'boxVisible' : 'boxHidden';
+    let test = this.props.open ? 'boxVisible' : 'boxHidden';
 
     var styles = {
       boxHidden: {
         display: 'flex',
+        justifyContent: 'center',
         boxSizing: 'border-box',
-        opacity: 1,
         maxHeight: 0,
         overflow: 'hidden',
-        width: '80%',
+        width: '100%',
         backgroundColor: '#fefefe',
         boxShadow: 'inset 0px 0px 0px 1px rgba(240,240,240,0.7)',
-        transition: 'all 1s ease-out',
+        transition: 'all 0.5s ease',
       },
       boxVisible: {
         display: 'flex',
+        justifyContent: 'center',
         overflow: 'hidden',
         boxSizing: 'border-box',
-        width: '80%',
-        opacity: 1,
+        width: '100%',
         maxHeight: 400,
         backgroundColor: '#fefefe',
         boxShadow: 'inset 0px 0px 0px 1px rgba(240,240,240,0.7)',
-        transition: 'all 1s ease',
+        transition: 'all 0.5s ease',
       }
     }
 

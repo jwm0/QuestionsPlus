@@ -14,9 +14,11 @@ export class Nav extends React.Component {
     this.onNewQuestionSubmit = this.onNewQuestionSubmit.bind(this);
     this.onHomeClick = this.onHomeClick.bind(this);
     this.onNewQuestionClick = this.onNewQuestionClick.bind(this);
+    this.hideSnackbar = this.hideSnackbar.bind(this);
     this.state = {
       text: "",
-      open: false
+      open: false,
+      showSnackbar: false
     }
   }
   componentDidMount () {
@@ -24,9 +26,6 @@ export class Nav extends React.Component {
     var {filter} = this.props;
     if (filter == 'all') $('#all_questions').prop('checked', true);
     else if (filter == 'my_shelf') $('#my_shelf').prop('checked', true);
-
-    // Create modal for adding questions -- FOR DEMO PURPOSES
-    var addQuestionModal = new Foundation.Reveal($('#addQuestionModal'));
   }
   handleTextChange (text) {
     this.setState({
@@ -37,7 +36,10 @@ export class Nav extends React.Component {
     window.location.reload();
   }
   onNewQuestionClick () {
-    this.child.onHandleClick();
+    this.setState({open: !this.state.open});
+  }
+  hideSnackbar () {
+    this.setState({showSnackbar: false});
   }
   onNewQuestionSubmit () {
     var {dispatch} = this.props;
@@ -51,12 +53,12 @@ export class Nav extends React.Component {
       return name;
     })();
 
-    // Reset search field
-    dispatch(actions.setSearchText(""));
-    this.setState({text:"", open: true});
     // Check if title is present
     if(title.length > 0){
+      // Reset search field
       dispatch(actions.newQuestion(title, text, peerCount, answered));
+      dispatch(actions.setSearchText(""));
+      this.setState({text:"", showSnackbar: true});
       this.onNewQuestionClick();
     }
   }
@@ -97,7 +99,7 @@ export class Nav extends React.Component {
                     </div>
                   </div>
                 </div>
-                <AnimatedInput onRef={ref => (this.child = ref)}>
+                <AnimatedInput open={this.state.open}>
                   <div style={{height: '100%'}}>
                     <h1>Ask a question!</h1>
                     <form onSubmit={this.onNewQuestionSubmit}>
@@ -123,7 +125,8 @@ export class Nav extends React.Component {
               </div>
           </div>
           <Snackbar
-            open={this.state.open}
+            open={this.state.showSnackbar}
+            onRequestClose={this.hideSnackbar}
             message="Question submitted"
             autoHideDuration={4000}
           />

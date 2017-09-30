@@ -44,6 +44,10 @@ module.exports = {
     } catch (e) {}
     return $.isEmptyObject(comments) ? {byID: {}, allIDs: {}} : comments;
   },
+  filterComments: function (comments) {
+    var filteredComments = comments;
+
+  },
   filterQuestions: function (questions, searchText, sortBy, filter) {
     // filteredQuestions contains an array of question IDs
     var filteredQuestions = questions.allIDs;

@@ -9,13 +9,13 @@
 
 .reply-container{
   display: flex;
+  margin-left: auto;
   background-color: #fff;
   -webkit-box-shadow: 2px 4px 8px 0px rgba(138,138,138,0.5);
   -moz-box-shadow: 2px 4px 8px 0px rgba(138,138,138,0.5);
   box-shadow: 2px 4px 8px 0px rgba(138,138,138,0.5);
   border-bottom: 1px solid rgba(138,138,138,0.3);
   width: 85%;
-  float: right;
 }
 
 .comment-section{
@@ -45,8 +45,8 @@
   text-align: center;
 }
 
-#reply{
-  overflow: auto;
+.reply{
+  width: 100%;
 }
 .id1{
   margin: 0 6px;

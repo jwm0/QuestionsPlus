@@ -41,7 +41,6 @@ export class Post extends React.Component {
       return (
         <div>
           <Question {...questions.byID[questionID]} isPost={true}/>
-          <div className="button-label"><button className="button-custom" style={{margin:0}}>GIVE new answer</button></div>
         </div>
       )
     }
@@ -51,7 +50,7 @@ export class Post extends React.Component {
         <div className="medium-centered large-11 medium-12" style={{backgroundColor:'#fafafa;min-height:80vh'}}>
           {renderQuestion()}
           <div className="text-center" style={{marginBottom:'1rem'}}>{questions.byID[questionID].comments.length} {peer} already answered {questions.byID[questionID].author}</div>
-          <CommentList comments={commentObjects}/>
+          <CommentList questionID={questionID} comments={commentObjects}/>
         </div>
       </div>
     )

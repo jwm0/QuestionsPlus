@@ -1,9 +1,23 @@
 import React from 'react';
 
 export default class AnimatedInput extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      height: 1500
+    }
+  }
+  componentDidUpdate(prevProps, prevState) {
+    var height = this.refs.inputNode ? this.refs.inputNode.clientHeight : null;
+    height = prevState.height > height ? prevState.height : height;
+    console.log(height);
+    if (this.props.open === false && prevProps.open === true) {
+      this.setState({height: height});
+    }
+  }
   render () {
+    var {height} = this.state;
     let test = this.props.open ? 'boxVisible' : 'boxHidden';
-
     var styles = {
       boxHidden: {
         display: 'flex',
@@ -22,7 +36,7 @@ export default class AnimatedInput extends React.Component {
         overflow: 'hidden',
         boxSizing: 'border-box',
         width: '100%',
-        maxHeight: 400,
+        maxHeight: height,
         backgroundColor: '#fefefe',
         boxShadow: 'inset 0px 0px 0px 1px rgba(240,240,240,0.7)',
         transition: 'all 0.5s ease',
@@ -30,7 +44,7 @@ export default class AnimatedInput extends React.Component {
     }
 
     return (
-      <div style={styles[test]}>
+      <div style={styles[test]} ref="inputNode">
         {this.props.children}
       </div>
     )

@@ -52,7 +52,7 @@ export var followQuestion = (id) => {
 
 export var vote = (id, score, voteStatus) => {
   return {
-    type: 'VOTE4',
+    type: 'VOTE',
     id,
     voteStatus,
     score
@@ -61,7 +61,7 @@ export var vote = (id, score, voteStatus) => {
 
 export var addQuestion = (id, author, title, text, peers, users, answered, comments) => {
   return {
-    type: 'ADD_QUESTION2',
+    type: 'ADD_QUESTION',
     peers,
     author,
     title,

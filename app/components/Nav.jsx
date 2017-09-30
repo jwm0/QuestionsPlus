@@ -105,18 +105,20 @@ export class Nav extends React.Component {
                     <form onSubmit={this.onNewQuestionSubmit}>
                       <input type="text" ref="questionTitle" placeholder="Title"/>
                       <textarea ref="questionText" placeholder="Text"/>
-                      <div className="demo-container">
-                        <p>Peers involved:</p>
-                        <input className="peerCount" type="number" min="0" defaultValue="0" ref="peerCount"/>
-                        <p>Answered?</p>
-                        <div className="switch">
-                          <input className="switch-input" ref="answered" id="answered" type="checkbox"/>
-                          <label className="switch-paddle" htmlFor="answered">
-                            <span className="switch-active" aria-hidden="true">Yes</span>
-                            <span className="switch-inactive" aria-hidden="true">No</span>
-                          </label>
-                        </div>
-                      </div>
+                          <fieldset className="demo-container">
+                            <legend>FOR DEMO PURPOSES</legend>
+                            <p>Peers involved:</p>
+                            <input className="peerCount" type="number" min="0" defaultValue="0" ref="peerCount"/>
+                            <p>Answered?</p>
+                            <div className="switch">
+                              <input className="switch-input" ref="answered" id="answered" type="checkbox"/>
+                              <label className="switch-paddle" htmlFor="answered">
+                                <span className="switch-active" aria-hidden="true">Yes</span>
+                                <span className="switch-inactive" aria-hidden="true">No</span>
+                              </label>
+                            </div>
+                          </fieldset>
+
                       <button id="submit_btn" className="button expanded">Submit</button>
                     </form>
                   </div>

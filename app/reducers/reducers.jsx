@@ -30,7 +30,7 @@ export var sortReducer = (state='recent', action) => {
 
 export var questionsReducer = (state={ byID: {}, allIDs: [] }, action) => {
   switch(action.type){
-    case 'ADD_QUESTION2':
+    case 'ADD_QUESTION':
       var id = uuid();
       return {
         byID: {
@@ -47,7 +47,6 @@ export var questionsReducer = (state={ byID: {}, allIDs: [] }, action) => {
             answered: action.answered,
             follow: false,
             submitted: moment().unix(),
-            users: action.users,
             comments: []
           }
         },
@@ -56,26 +55,6 @@ export var questionsReducer = (state={ byID: {}, allIDs: [] }, action) => {
           action.id
         ]
       }
-    case 'ADD_QUESTION':
-      return [
-        ...state,
-        {
-          id: uuid(),
-          author: action.author,
-          title: action.title,
-          text: action.text,
-          score: 1,
-          related: Math.floor((Math.random() * 10) + 1),
-          peers: action.peers,
-          conversations: Math.floor((Math.random() * 10) + 1),
-          answered: action.answered,
-          follow: false,
-          submitted: moment().unix(),
-          users: action.users,
-          comments: action.comments,
-          voteStatus: {upvoted:false,downvoted:false}
-        }
-      ];
     case 'ADD_QUESTIONS':
       return {
         ...action.questions
@@ -106,63 +85,6 @@ export var questionsReducer = (state={ byID: {}, allIDs: [] }, action) => {
         allIDs: [...state.allIDs]
       }
     case 'VOTE':
-      return state.map((question)=>{
-        question.users = question.users.map((user)=>{
-                if (user.id == action.id) {
-                  return {
-                      ...user,
-                      voteStatus: action.voteStatus,
-                      score: action.score
-                    }
-                  }
-                  return user;
-                }
-        );
-        if (question.id == action.id) {
-          return {
-                  ...question,
-                  voteStatus: action.voteStatus,
-                  score: action.score
-                }
-              }
-              return question;
-            });
-    case 'VOTE2':
-      var updated = false;
-      for (var i = 0; i < state.length; i++) {
-          if (state[i].id === action.id) {
-              state[i].score = action.score;
-              break;
-          }
-          for (var j = 0; j < state[i].users.length; j++) {
-              if (state[i].users[j].id === action.id) {
-                  state[i].users[j].score = action.score;
-                  updated = true;
-                  break;
-              }
-          }
-          if (updated) { break; }
-      }
-      return state;
-    case 'VOTE3':
-      for (var i = 0; i< state.length; i++) {
-        if (state[i].id === action.superID) {
-          if (state[i].id === action.id) {
-              state[i].score = action.score;
-              break;
-          }
-          for (var j = 0; j < state[i].users.length; j++) {
-              if (state[i].users[j].id === action.id) {
-                  state[i].users[j].score = action.score;
-                  updated = true;
-                  break;
-              }
-          }
-        }
-        if (updated) { break; }
-      }
-      return state;
-    case 'VOTE4':
       return {
         byID: {
           ...state.byID,
@@ -226,7 +148,8 @@ export var commentReducer = (state={ byID: {}, allIDs: [] }, action) => {
             id: action.id,
             author: action.user,
             text: action.text,
-            score: 1
+            score: 1,
+            answered: false
           }
         },
         allIDs: [

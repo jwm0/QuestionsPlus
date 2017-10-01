@@ -91,6 +91,14 @@ export var addComments = (comments) => {
   }
 }
 
+export var setAnsweredComment = (commentID, questionID) => {
+  return {
+    type: 'SET_ANSWERED',
+    commentID,
+    questionID
+  }
+}
+
 export var newComment = (user, text) => {
   var id = uuid();
   return (dispatch, getState) => {
@@ -138,9 +146,6 @@ export var newQuestion = (title, text, peers, answered) => {
       for (var i=0; i<users.length; i++){
         dispatch(addComment(id, users[i], 'Test comment #' + i));
       }
-      // var users = getState().users.sort(function(){return 0.5 - Math.random()}).slice(0, size);
-      // users.map((user)=>{user.score=1;user.voteStatus={upvoted:false,downvoted:false}});
-      // dispatch(addQuestion('Anonymous', title, text, peers, users, answered));
     }
   }
 }

@@ -10,6 +10,7 @@ export class Comment extends React.Component {
     super();
     this.toggleReplyBar = this.toggleReplyBar.bind(this);
     this.handleSubmitComment = this.handleSubmitComment.bind(this);
+    this.handleSetAnswered = this.handleSetAnswered.bind(this);
     this.state = {open: false};
   }
   toggleReplyBar() {
@@ -17,6 +18,9 @@ export class Comment extends React.Component {
   }
   handleSubmitComment() {
   //  this.props.dispatch(actions.addComment(this.props.questionID, this.props.author, this.refs.commentText.value));
+  }
+  handleSetAnswered() {
+    this.props.dispatch(actions.setAnsweredComment(this.props.id, this.props.questionID));
   }
   render() {
     console.log(this.props);
@@ -60,6 +64,7 @@ export class Comment extends React.Component {
                   {text}
                 </div>
                 <div className="comment-right">
+                  <button className="button tiny" onClick={this.handleSetAnswered}>ANSWERED</button>
                   <Voting id={id} score={score}/>
                 </div>
               </div>

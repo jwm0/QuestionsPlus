@@ -4,51 +4,64 @@ import {connect} from 'react-redux';
 import * as actions from 'actions';
 import ProfilePicture from 'ProfilePicture';
 import AnimatedInput from 'AnimatedInput';
+import ChildComment from 'ChildComment';
 
 export class Comment extends React.Component {
   constructor() {
     super();
     this.toggleReplyBar = this.toggleReplyBar.bind(this);
-    this.handleSubmitComment = this.handleSubmitComment.bind(this);
+    this.showAllComments = this.showAllComments.bind(this);
+    this.handleSubmitChildComment = this.handleSubmitChildComment.bind(this);
     this.handleSetAnswered = this.handleSetAnswered.bind(this);
-    this.state = {open: false};
+    this.state = {
+      open: false,
+      childrenCount: 2
+    };
   }
   toggleReplyBar() {
     this.setState({open: !this.state.open});
   }
-  handleSubmitComment() {
-  //  this.props.dispatch(actions.addComment(this.props.questionID, this.props.author, this.refs.commentText.value));
+  handleSubmitChildComment() {
+    // use parent as poster - demo only
+    this.props.dispatch(actions.addChildComment(this.props.id, this.props.author, this.refs.commentText.value));
   }
   handleSetAnswered() {
     this.props.dispatch(actions.setAnsweredComment(this.props.id, this.props.questionID));
   }
+  showAllComments() {
+    this.setState({childrenCount: undefined});
+  }
   render() {
-    console.log(this.props);
-    var {id, authorName, image, text, score, hasChild} = this.props;
-    var reply = ()=>{
-      if(hasChild){
-        return(
-          <div className="reply">
-            <div className="reply-container">
-              <div className="picture-wrapper"><ProfilePicture name="Andrew"/></div>
-              <div className="comment-section">
-                <div className="comment-top">
-                  Andrew <span className="id1">COMMENTED IT &#9679;</span> <span className="id2">today</span>
-                </div>
-                <div className="comment-bottom">
-                  <div className="comment-left">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam pellentesque congue dolor a ultrices. Nulla facilisi. Donec commodo pretium leo, eu laoreet justo.
-                  </div>
-                  <div className="comment-right">
-                    <Voting score={1}/>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
+    var {id, authorName, image, text, score, hasChild, children, comments, users} = this.props;
+
+    var renderChildren = () => {
+      if (children.length > 0) {
+        for (var i=0; i<children.length; i++){ // should iterate
+          var commentsRef = comments.byID[children[i]];
+          commentsRef.image = users.byID[commentsRef.author].image;
+          commentsRef.authorName = users.byID[commentsRef.author].name;
+        }
+        return children.slice(0, this.state.childrenCount).map((child)=>{
+          const name = comments.byID[child].authorName;
+          const text = comments.byID[child].text;
+          const score = comments.byID[child].score;
+          const image = comments.byID[child].image;
+          return(
+            <ChildComment key={child} name={name} text={text} score={score} image={image}/>
+          );
+        });
       }
-    };
+    }
+
+    var renderAllComments = () => {
+      if (children.length > this.state.childrenCount) {
+        return (
+          <div>
+            <button className="button" style={{display:'flex;justify-content:center'}} onClick={this.showAllComments}>Show more</button>
+          </div>
+        )
+      }
+    }
 
     return(
       <div>
@@ -70,10 +83,11 @@ export class Comment extends React.Component {
               </div>
             </div>
           </div>
-          {reply()}
+          {renderChildren()}
+          {renderAllComments()}
           <AnimatedInput open={this.state.open}>
             <div className="large-8 medium-10 small-12 small-centered" style={{height: '100%'}}>
-              <form onSubmit={this.handleSubmitComment}>
+              <form onSubmit={this.handleSubmitChildComment}>
                 <textarea ref="commentText" placeholder="Text"/>
                 <button id="submit_btn" className="button expanded">Submit</button>
               </form>
@@ -89,6 +103,7 @@ export class Comment extends React.Component {
 export default connect(
   (state) => {
     return {
+      comments: state.comments,
       users: state.users
     }
   }

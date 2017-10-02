@@ -90,9 +90,9 @@ export var questionsReducer = (state={ byID: {}, allIDs: [] }, action) => {
           ...state.byID,
           [action.questionID]: {
             ...state.byID[action.questionID],
+            answered: true,
             comments: [
-              action.commentID,
-              ...new Set(state.byID[action.questionID].comments)
+              ...new Set([action.commentID, ...state.byID[action.questionID].comments])
             ]
           }
         },
@@ -163,7 +163,8 @@ export var commentReducer = (state={ byID: {}, allIDs: [] }, action) => {
             author: action.user,
             text: action.text,
             score: 1,
-            answered: false
+            answered: false,
+            children: []
           }
         },
         allIDs: [
@@ -171,6 +172,23 @@ export var commentReducer = (state={ byID: {}, allIDs: [] }, action) => {
           action.id
         ]
       }
+    case 'ADD_CHILD_COMMENT':
+      return {
+          byID: {
+            ...state.byID,
+            [action.childID]: {
+              id: action.childID,
+              author: action.user,
+              text: action.text,
+              score: 1
+            },
+            [action.parentID]: {
+              ...state.byID[action.parentID],
+              children: [...state.byID[action.parentID].children, action.childID]
+            }
+          },
+          allIDs: [...state.allIDs, action.childID]
+        }
     case 'LOAD_COMMENTS':
       return {
         ...action.comments

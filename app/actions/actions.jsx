@@ -73,6 +73,7 @@ export var addQuestion = (id, author, title, text, peers, users, answered, comme
   }
 }
 
+// comment under question
 export var addComment = (questionid, user, text) => {
   var id = uuid();
   return {
@@ -81,6 +82,18 @@ export var addComment = (questionid, user, text) => {
     text,
     id,
     questionid
+  }
+}
+
+// reply under comment
+export var addChildComment = (parentID, user, text) => {
+  var id = uuid();
+  return {
+    type: 'ADD_CHILD_COMMENT',
+    parentID,
+    childID: id,
+    user,
+    text
   }
 }
 

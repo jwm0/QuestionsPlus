@@ -27,13 +27,12 @@ export class Question extends React.Component {
   render () {
     var {id, author, title, text, score, peers, related, conversations, answered, isPost, follow, comments} = this.props;
     const followButton = follow ? "unfollow" : "follow";
-    const arrayLen = comments.length; // to be removed
     const link = `/comments/${id}/`;
 
 
     var renderPeers = () => {
       return comments.map((comment, i) => {
-        if(arrayLen == i+1){
+        if(i === 0){
           return (<Peer key={comment} id={comment} answered={answered}/>);
         }
         else{

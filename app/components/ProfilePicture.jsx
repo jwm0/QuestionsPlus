@@ -7,7 +7,6 @@ export class ProfilePicture extends React.Component {
   constructor () {
     super();
     this.handlePictureClick = this.handlePictureClick.bind(this);
-    var test = 'something';
   }
   handlePictureClick () {
     var {name, image} = this.props;

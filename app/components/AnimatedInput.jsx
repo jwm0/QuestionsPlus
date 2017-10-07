@@ -1,22 +1,8 @@
 import React from 'react';
 
 export default class AnimatedInput extends React.Component {
-  constructor (props) {
-    super(props);
-    this.state = {
-      height: 1500
-    }
-  }
-  componentDidUpdate(prevProps, prevState) {
-    var height = this.refs.inputNode ? this.refs.inputNode.clientHeight : null;
-    height = prevState.height > height ? prevState.height : height;
-    console.log(height);
-    if (this.props.open === false && prevProps.open === true) {
-      this.setState({height: height});
-    }
-  }
   render () {
-    var {height} = this.state;
+    var {height} = this.props;
     let test = this.props.open ? 'boxVisible' : 'boxHidden';
     var styles = {
       boxHidden: {

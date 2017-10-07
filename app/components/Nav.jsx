@@ -41,7 +41,8 @@ export class Nav extends React.Component {
   hideSnackbar () {
     this.setState({showSnackbar: false});
   }
-  onNewQuestionSubmit () {
+  onNewQuestionSubmit (e) {
+    e.preventDefault();
     var {dispatch} = this.props;
     // Get values from input fields
     var title = this.refs.questionTitle.value;
@@ -99,8 +100,8 @@ export class Nav extends React.Component {
                     </div>
                   </div>
                 </div>
-                <AnimatedInput open={this.state.open}>
-                  <div style={{height: '100%'}}>
+                <AnimatedInput open={this.state.open} height="500">
+                  <div style={{height:500}}>
                     <h1>Ask a question!</h1>
                     <form onSubmit={this.onNewQuestionSubmit}>
                       <input type="text" ref="questionTitle" placeholder="Title"/>

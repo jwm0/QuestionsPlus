@@ -30,8 +30,13 @@ export class Post extends React.Component {
     var commentObjects = [];
     for (var i=0; i<commentIDs.length; i++){
       commentObjects.push(comments.byID[commentIDs[i]]);
-      commentObjects[i].image = users.byID[commentObjects[i].author].image;
-      commentObjects[i].authorName = users.byID[commentObjects[i].author].name;
+      try {
+        commentObjects[i].image = users.byID[commentObjects[i].author].image;
+        commentObjects[i].authorName = users.byID[commentObjects[i].author].name;
+      } catch (e) {
+        commentObjects[i].image = null;
+        commentObjects[i].authorName = 'Anonymous';
+      }
     }
 
     var peer = (()=>{if(questions.byID[questionID].comments.length==1) return "peer"

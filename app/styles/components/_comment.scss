@@ -18,6 +18,16 @@
   width: 85%;
 }
 
+.reply-input{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .reply-textarea{
+    width: 100%;
+  }
+}
+
 .comment-section{
   width: 85%;
   float: right;

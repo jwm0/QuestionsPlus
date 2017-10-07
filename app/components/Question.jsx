@@ -4,6 +4,9 @@ import {connect} from 'react-redux';
 import * as actions from 'actions';
 import ProfilePicture from 'ProfilePicture';
 import AnimatedInput from 'AnimatedInput';
+import TextField from 'material-ui/TextField';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import Peer from 'Peer';
 import Voting from 'Voting';
@@ -13,9 +16,12 @@ export class Question extends React.Component {
     super(props);
     this.handleFollow = this.handleFollow.bind(this);
     this.handleComment = this.handleComment.bind(this);
+    this.handleSubmitNewComment = this.handleSubmitNewComment.bind(this);
+    this.updateTextfield = this.updateTextfield.bind(this);
 
     this.state = {
-      open: false
+      open: false,
+      textField: ''
     }
   }
   handleFollow () {
@@ -23,6 +29,17 @@ export class Question extends React.Component {
   }
   handleComment () {
     this.setState({open: !this.state.open});
+  }
+  updateTextfield (e, text) {
+    this.setState({textField: text});
+  }
+  handleSubmitNewComment(e) {
+    e.preventDefault();
+    // use parent as poster - demo only
+    if (this.state.textField.length > 0) {
+      this.props.dispatch(actions.addComment(this.props.id, this.props.author, this.state.textField));
+      this.setState({open: false, textField: ''});
+    }
   }
   render () {
     var {id, author, title, text, score, peers, related, conversations, answered, isPost, follow, comments} = this.props;
@@ -110,12 +127,14 @@ export class Question extends React.Component {
                 </div>
               </div>
             </div>
-            <AnimatedInput open={this.state.open}>
-              <div className="large-8 medium-10 small-12 small-centered" style={{height: '100%'}}>
-                <form onSubmit={this.onNewQuestionSubmit}>
-                  <textarea ref="questionText" placeholder="Text"/>
-                  <button id="submit_btn" className="button expanded">Submit</button>
-                </form>
+            <AnimatedInput open={this.state.open} height={250}>
+              <div className="large-8 medium-10 small-12 small-centered reply-input" style={{height:250}}>
+                <div style={{width:'100%'}}>
+                  <TextField value={this.state.textField} onChange={this.updateTextfield} hintText="Type in here" fullWidth={true} multiLine={true} rowsMax={5} rows={3} floatingLabelText="Add a comment!"/>
+                  <FloatingActionButton onClick={this.handleSubmitNewComment}>
+                    <ContentAdd/>
+                  </FloatingActionButton>
+                </div>
               </div>
             </AnimatedInput>
           </div>

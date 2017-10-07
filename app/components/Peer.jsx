@@ -7,8 +7,14 @@ import ProfilePicture from 'ProfilePicture';
 export class Peer extends React.Component {
   render () {
     var {answered, id, users, comments} = this.props;
-    var userID = users.byID[comments.byID[id].author].name;
-    var image = users.byID[comments.byID[id].author].image;
+    try {
+      var userID = users.byID[comments.byID[id].author].name;
+      var image = users.byID[comments.byID[id].author].image;
+    } catch(e) {
+      userID = "Anonymous";
+      image = null;
+    }
+
     var renderPeer = () => {
       if (answered) {
         return (

@@ -11,7 +11,7 @@ export default class CommentList extends React.Component {
         if (i>0) hasChild=false;
         return (
           <div key={comment.id}>
-            <Comment {...comment} questionID={questionID} hasChild={hasChild}/>
+            <Comment {...comment} questionID={questionID} answeredComment={this.props.answeredComment} hasChild={hasChild}/>
           </div>
         )
       });

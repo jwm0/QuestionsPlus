@@ -59,7 +59,7 @@ export var vote = (id, score, voteStatus) => {
   }
 }
 
-export var addQuestion = (id, author, title, text, peers, users, answered, comments) => {
+export var addQuestion = (id, author, title, text, peers, users, comments) => {
   return {
     type: 'ADD_QUESTION',
     peers,
@@ -67,7 +67,6 @@ export var addQuestion = (id, author, title, text, peers, users, answered, comme
     title,
     text,
     users,
-    answered,
     comments,
     id
   }
@@ -112,14 +111,6 @@ export var setAnsweredComment = (commentID, questionID) => {
   }
 }
 
-export var newComment = (user, text) => {
-  var id = uuid();
-  return (dispatch, getState) => {
-    dispatch(addComment(user, text));
-    //dispatch()
-  }
-}
-
 // Creating a fake user database (6 users) for demonstration purposes
 export var createUserDatabase = () => {
   var names = ['Elon', 'Selena', 'Jacob', 'Andrew', 'Barbra', 'Beth', 'Eva', 'Gary'];
@@ -143,7 +134,7 @@ export var createUserDatabase = () => {
 
 
 // For demo purposes
-export var newQuestion = (title, text, peers, answered) => {
+export var newQuestion = (title, text, peers) => {
   // Passing id as argument in order to simulate user interaction inside a Post
   // otherwise id should be set in a reducer
   var id = uuid();
@@ -155,7 +146,7 @@ export var newQuestion = (title, text, peers, answered) => {
       var size = peers;
       if (size > 4) size = 4;
       var users = getState().users.allIDs.sort(function(){return 0.5 - Math.random()}).slice(0, size);
-      dispatch(addQuestion(id, 'Anonymous', title, text, peers, users, answered));
+      dispatch(addQuestion(id, 'Anonymous', title, text, peers, users));
       for (var i=0; i<users.length; i++){
         dispatch(addComment(id, users[i], 'Test comment #' + i));
       }

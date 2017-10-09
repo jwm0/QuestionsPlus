@@ -8,6 +8,13 @@
   box-shadow: 2px 4px 8px 0px rgba(138,138,138,0.2);
 }
 
+.question-input{
+  width: 100%;
+  flex-direction: column;
+  padding: 1rem 3rem;
+
+}
+
 .question-left {
   width: 80%;
 }
@@ -17,6 +24,10 @@
   width: 100%;
   background-color: $blue;
   padding: 1rem 0;
+}
+
+.question-bottom{
+  display: flex;
 }
 
 .header-wrapper{
@@ -48,7 +59,6 @@
 
 .question-side{
   background-color: $blue;
-  height: 200px;
   width: 15%;
   float: left;
   display: flex;

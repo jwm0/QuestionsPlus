@@ -48,9 +48,9 @@ export class Question extends React.Component {
 
 
     var renderPeers = () => {
-      return comments.map((comment, i) => {
+      return comments.slice(0,4).map((comment, i) => {
         if(i === 0){
-          return (<Peer key={comment} id={comment} answered={answered}/>);
+          return (<Peer key={comment} id={comment} answered={true}/>);
         }
         else{
           return (<Peer key={comment} id={comment}/>);
@@ -127,11 +127,11 @@ export class Question extends React.Component {
                 </div>
               </div>
             </div>
-            <AnimatedInput open={this.state.open} height={250}>
-              <div className="large-8 medium-10 small-12 small-centered reply-input" style={{height:250}}>
-                <div style={{width:'100%'}}>
-                  <TextField value={this.state.textField} onChange={this.updateTextfield} hintText="Type in here" fullWidth={true} multiLine={true} rowsMax={5} rows={3} floatingLabelText="Add a comment!"/>
-                  <FloatingActionButton onClick={this.handleSubmitNewComment}>
+            <AnimatedInput open={this.state.open} height={230}>
+              <div className="large-8 medium-10 small-12 small-centered reply-input" style={{height:230}}>
+                <div style={{width:'100%;height:100%'}}>
+                  <TextField value={this.state.textField} onChange={this.updateTextfield} hintText="Type in here" fullWidth={true} multiLine={true} rowsMax={5} rows={5} floatingLabelText="Add a comment!"/>
+                  <FloatingActionButton mini={true} onClick={this.handleSubmitNewComment}>
                     <ContentAdd/>
                   </FloatingActionButton>
                 </div>

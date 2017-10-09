@@ -44,9 +44,10 @@ export class Comment extends React.Component {
     this.setState({childrenCount: undefined});
   }
   render() {
-    var {id, authorName, image, text, score, hasChild, children, answered, comments, users} = this.props;
-    const setAnsweredButton = answered ? 'button tiny' : 'button tiny hollow secondary disabled';
+    var {id, authorName, image, text, score, hasChild, children, comments, users, answeredComment} = this.props;
+    const setAnsweredButton = answeredComment === id ? 'button tiny' : 'button tiny hollow secondary';
 
+    console.log(answeredComment);
     var renderChildren = () => {
       if (children.length > 0) {
         for (var i=0; i<children.length; i++){ // should iterate
@@ -101,11 +102,11 @@ export class Comment extends React.Component {
               </div>
             </div>
           </div>
-          <AnimatedInput open={this.state.open} height={250}>
-            <div className="large-8 medium-10 small-12 small-centered reply-input" style={{height:250}}>
-              <div style={{width:'100%'}}>
-                <TextField value={this.state.textField} onChange={this.updateTextfield} hintText="Type in here" fullWidth={true} multiLine={true} rowsMax={5} rows={3} floatingLabelText="Add a comment!"/>
-                <FloatingActionButton onClick={this.handleSubmitChildComment}>
+          <AnimatedInput open={this.state.open} height={230}>
+            <div className="large-8 medium-10 small-12 small-centered reply-input" style={{height:230}}>
+              <div style={{width:'100%;height:100%;padding:0 0.5rem'}}>
+                <TextField value={this.state.textField} onChange={this.updateTextfield} hintText="Type in here" fullWidth={true} multiLine={true} rowsMax={5} rows={5} floatingLabelText="Add a comment!"/>
+                <FloatingActionButton mini={true} onClick={this.handleSubmitChildComment}>
                    <ContentAdd/>
                  </FloatingActionButton>
               </div>

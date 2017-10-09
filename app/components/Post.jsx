@@ -55,7 +55,7 @@ export class Post extends React.Component {
         <div className="medium-centered large-11 medium-12" style={{backgroundColor:'#fafafa;min-height:80vh'}}>
           {renderQuestion()}
           <div className="text-center" style={{marginBottom:'1rem'}}>{questions.byID[questionID].comments.length} {peer} already answered {questions.byID[questionID].author}</div>
-          <CommentList questionID={questionID} comments={commentObjects}/>
+          <CommentList questionID={questionID} answeredComment={questions.byID[questionID].answered} comments={commentObjects}/>
         </div>
       </div>
     )

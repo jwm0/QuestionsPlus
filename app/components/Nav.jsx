@@ -6,6 +6,10 @@ import {connect} from 'react-redux';
 import * as actions from 'actions';
 import AnimatedInput from 'AnimatedInput';
 import Snackbar from 'material-ui/Snackbar';
+import TextField from 'material-ui/TextField';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+
 
 export class Nav extends React.Component {
   constructor() {
@@ -18,7 +22,9 @@ export class Nav extends React.Component {
     this.state = {
       text: "",
       open: false,
-      showSnackbar: false
+      showSnackbar: false,
+      textField: "",
+      title: ""
     }
   }
   componentDidMount () {
@@ -45,10 +51,9 @@ export class Nav extends React.Component {
     e.preventDefault();
     var {dispatch} = this.props;
     // Get values from input fields
-    var title = this.refs.questionTitle.value;
-    var text = this.refs.questionText.value;
+    const title = this.state.title;
+    const text = this.state.textField;
     var peerCount = this.refs.peerCount.value;
-    var answered = this.refs.answered.checked;
     var author = ((name="Anonymous") => {
       // fetch username from database
       return name;
@@ -57,7 +62,7 @@ export class Nav extends React.Component {
     // Check if title is present
     if(title.length > 0){
       // Reset search field
-      dispatch(actions.newQuestion(title, text, peerCount, answered));
+      dispatch(actions.newQuestion(title, text, peerCount));
       dispatch(actions.setSearchText(""));
       this.setState({text:"", showSnackbar: true});
       this.onNewQuestionClick();
@@ -101,27 +106,26 @@ export class Nav extends React.Component {
                   </div>
                 </div>
                 <AnimatedInput open={this.state.open} height="500">
-                  <div style={{height:500}}>
-                    <h1>Ask a question!</h1>
-                    <form onSubmit={this.onNewQuestionSubmit}>
+                    <div className="question-input">
+                      <h1>Ask a question!</h1>
+                      <TextField value={this.state.title} onChange={(e, text)=>{this.setState({title: text})}} fullWidth={true} hintText="Type in title" floatingLabelText="Title" floatingLabelFixed={true} />
+                      <TextField value={this.state.textField} onChange={(e, text)=>{this.setState({textField: text})}} hintText="optional" fullWidth={true} multiLine={true} rowsMax={7} rows={7} floatingLabelText="Text" floatingLabelFixed={true}/>
+                      <FloatingActionButton mini={true} onClick={this.onNewQuestionSubmit}>
+                         <ContentAdd/>
+                       </FloatingActionButton>
+                       <label>Number of peers (demo only)</label>
+                       <input className="peerCount" type="number" min="0" defaultValue="0" ref="peerCount"/>
+                    {/* <form onSubmit={this.onNewQuestionSubmit}>
                       <input type="text" ref="questionTitle" placeholder="Title"/>
                       <textarea ref="questionText" placeholder="Text"/>
                           <fieldset className="demo-container">
                             <legend>FOR DEMO PURPOSES</legend>
                             <p>Peers involved:</p>
                             <input className="peerCount" type="number" min="0" defaultValue="0" ref="peerCount"/>
-                            <p>Answered?</p>
-                            <div className="switch">
-                              <input className="switch-input" ref="answered" id="answered" type="checkbox"/>
-                              <label className="switch-paddle" htmlFor="answered">
-                                <span className="switch-active" aria-hidden="true">Yes</span>
-                                <span className="switch-inactive" aria-hidden="true">No</span>
-                              </label>
-                            </div>
                           </fieldset>
 
                       <button id="submit_btn" className="button expanded">Submit</button>
-                    </form>
+                    </form> */}
                   </div>
                 </AnimatedInput>
                 <Search text={text} onTextChange={this.handleTextChange}/>

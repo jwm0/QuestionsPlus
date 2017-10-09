@@ -90,7 +90,7 @@ export var questionsReducer = (state={ byID: {}, allIDs: [] }, action) => {
           ...state.byID,
           [action.questionID]: {
             ...state.byID[action.questionID],
-            answered: true,
+            answered: action.commentID,
             comments: [
               ...new Set([action.commentID, ...state.byID[action.questionID].comments])
             ]
@@ -192,17 +192,6 @@ export var commentReducer = (state={ byID: {}, allIDs: [] }, action) => {
     case 'LOAD_COMMENTS':
       return {
         ...action.comments
-      }
-    case 'SET_ANSWERED':
-      return {
-        byID: {
-          ...state.byID,
-          [action.commentID]: {
-            ...state.byID[action.commentID],
-            answered: true
-          }
-        },
-        allIDs: [...state.allIDs]
       }
     default:
       return state;

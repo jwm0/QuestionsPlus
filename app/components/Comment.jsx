@@ -86,7 +86,7 @@ export class Comment extends React.Component {
       <div>
         <div className="large-8 medium-10 small-12 small-centered">
           <div className="comment-container">
-            <div className="picture-wrapper"><ProfilePicture name={authorName} image={image}/></div>
+            <div className="picture-wrapper"><ProfilePicture id={comments.byID[id].author} name={authorName} image={image}/></div>
             <div className="comment-section">
               <div className="comment-top">
                 {authorName} <span className="id1">COMMENTED IT &#9679;</span> <span className="id2">yesterday</span>

@@ -42,15 +42,16 @@ export class Question extends React.Component {
     }
   }
   render () {
-    var {id, author, title, text, score, peers, related, conversations, answered, isPost, follow, comments} = this.props;
+    var {id, author, title, text, score, peers, related, conversations, answered, isPost, follow, comments, users} = this.props;
     const followButton = follow ? "unfollow" : "follow";
     const link = `/comments/${id}/`;
+    const authorName = users.byID[author] ? users.byID[author].name : 'Anonymous';
 
 
     var renderPeers = () => {
       return comments.slice(0,4).map((comment, i) => {
         if(i === 0){
-          return (<Peer key={comment} id={comment} answered={true}/>);
+          return (<Peer key={comment} id={comment} answered={answered}/>);
         }
         else{
           return (<Peer key={comment} id={comment}/>);
@@ -65,9 +66,9 @@ export class Question extends React.Component {
         <div className="large-8 medium-10 small-12 small-centered question">
           <div className="question-left">
             <div className="question-top">
-              <div className="picture-wrapper"><ProfilePicture/></div>
+              <div className="picture-wrapper"><ProfilePicture id={author}/></div>
               <div className="header-wrapper">
-                <h3>{author} <span className="span-style">IS ASKING:</span></h3>
+                <h3>{authorName} <span className="span-style">IS ASKING:</span></h3>
                 <Link to={link} onClick={this.handleRedirect}><h3 style={{'margin':'0;font-style:italic'}}>{title}</h3></Link>
               </div>
             </div>
@@ -110,9 +111,9 @@ export class Question extends React.Component {
           <div className="large-8 medium-10 small-12 small-centered question" style={{padding:'0;border:none;flex-direction:column'}}>
             <div style={{width:'100%'}}>
               <div className="question-top">
-                <div className="picture-wrapper"><ProfilePicture/></div>
+                <div className="picture-wrapper"><ProfilePicture id={author}/></div>
                 <div className="header-wrapper">
-                  <h3>{author} <span className="span-style">IS ASKING:</span></h3>
+                  <h3>{authorName} <span className="span-style">IS ASKING:</span></h3>
                   <Link to="/comments" onClick={this.handleRedirect}><h3 style={{'margin':'0;font-style:italic'}}>{title}</h3></Link>
                 </div>
                 <div className="follow-button"><button onClick={this.handleFollow}>{followButton}</button></div>
@@ -147,4 +148,10 @@ export class Question extends React.Component {
   }
 }
 
-export default connect()(Question);
+export default connect(
+  (state) => {
+    return {
+      users: state.users
+    }
+  }
+)(Question);

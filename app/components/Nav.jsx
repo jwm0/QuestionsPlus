@@ -54,10 +54,6 @@ export class Nav extends React.Component {
     const title = this.state.title;
     const text = this.state.textField;
     var peerCount = this.refs.peerCount.value;
-    var author = ((name="Anonymous") => {
-      // fetch username from database
-      return name;
-    })();
 
     // Check if title is present
     if(title.length > 0){

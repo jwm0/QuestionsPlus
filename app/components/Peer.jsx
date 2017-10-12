@@ -6,13 +6,11 @@ import ProfilePicture from 'ProfilePicture';
 
 export class Peer extends React.Component {
   render () {
-    var {answered, id, users, comments} = this.props;
+    var {answered, id, comments} = this.props;
     try {
-      var userID = users.byID[comments.byID[id].author].name;
-      var image = users.byID[comments.byID[id].author].image;
+      var userID = comments.byID[id].author;
     } catch(e) {
-      userID = "Anonymous";
-      image = null;
+      userID = null;
     }
 
     var renderPeer = () => {
@@ -20,7 +18,7 @@ export class Peer extends React.Component {
         return (
           <div style={{width:'20%'}}>
             <div className="question-profile">
-              <div style={{marginTop:'20px'}}><ProfilePicture name={userID} image={image}/></div>
+              <div style={{marginTop:'20px'}}><ProfilePicture id={userID} name={userID}/></div>
               <div className="peer-footer">
                 <div className="text-footer" style={{'borderTop': '2px solid rgba(0,0,0,0.6)'}}><b>ANSWERED</b></div>
                 <span className="profile-dot" style={{backgroundColor:'#222'}}></span>
@@ -32,7 +30,7 @@ export class Peer extends React.Component {
         return (
           <div style={{width:'20%'}}>
             <div className="question-profile">
-              <div style={{marginTop:'20px'}}><ProfilePicture name={userID} image={image}/></div>
+              <div style={{marginTop:'20px'}}><ProfilePicture id={userID} name={userID}/></div>
               <div className="peer-footer">
                 <div className="text-footer">COMMENTED</div>
                 <span className="profile-dot"></span>
@@ -51,8 +49,7 @@ export class Peer extends React.Component {
 export default connect(
   (state) => {
     return {
-      comments: state.comments,
-      users: state.users
+      comments: state.comments
     }
   }
 )(Peer);

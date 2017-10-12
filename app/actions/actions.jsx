@@ -35,11 +35,12 @@ export var addUsers = (users) => {
   }
 }
 
-export var addUser = (name, image) => {
+export var addUser = (name, image, id) => {
   return {
     type: 'ADD_USER',
     name,
-    image
+    image,
+    id
   }
 }
 
@@ -126,7 +127,8 @@ export var createUserDatabase = () => {
   ];
   return (dispatch, getState) => {
     for (var i=0; i<names.length; i++) {
-      dispatch(addUser(names[i], images[i]));
+      var id = uuid();
+      dispatch(addUser(names[i], images[i], id));
     }
   }
 }
@@ -139,14 +141,15 @@ export var newQuestion = (title, text, peers) => {
   // otherwise id should be set in a reducer
   var id = uuid();
   return (dispatch, getState) => {
+    const userID = getState().auth.uid ? getState().auth.uid : 'anon';
     if (peers == 0) {
-      dispatch(addQuestion(id, 'Anonymous', title, text, peers, [], false));
+      dispatch(addQuestion(id, userID, title, text, peers, [], false));
     }
     else if (peers > 0) {
       var size = peers;
       if (size > 4) size = 4;
       var users = getState().users.allIDs.sort(function(){return 0.5 - Math.random()}).slice(0, size);
-      dispatch(addQuestion(id, 'Anonymous', title, text, peers, users));
+      dispatch(addQuestion(id, userID, title, text, peers, users));
       for (var i=0; i<users.length; i++){
         dispatch(addComment(id, users[i], 'Test comment #' + i));
       }
@@ -165,5 +168,18 @@ export var openModal = (user = "Anonymous", image) => {
 export var hideModal = () => {
   return {
     type: 'HIDE_MODAL'
+  }
+}
+
+export var login = (uid)=>{
+  return {
+    type: 'LOGIN',
+    uid
+  }
+}
+
+export var logout = ()=>{
+  return {
+    type: 'LOGOUT'
   }
 }

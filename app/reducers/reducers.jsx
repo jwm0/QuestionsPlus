@@ -117,20 +117,19 @@ export var questionsReducer = (state={ byID: {}, allIDs: [] }, action) => {
 export var usersReducer = (state={ byID: {}, allIDs: [] }, action) => {
   switch(action.type) {
     case 'ADD_USER':
-      var id = uuid();
       return {
         byID: {
           ...state.byID,
-          [id]: {
+          [action.id]: {
             // DEMO VALUES
-            id,
+            id: action.id,
             image: action.image,
             name: action.name
           }
         },
         allIDs: [
           ...state.allIDs,
-          id
+          action.id
         ]
       }
     case 'NEW_USER':
@@ -213,4 +212,17 @@ export var modalReducer = (state={showModal:false, user: "Anonymous", image: "..
     default:
       return state;
   }
+}
+
+export var authReducer = (state={}, action) => {
+ switch (action.type) {
+   case 'LOGIN':
+    return {
+      uid: action.uid
+    };
+   case 'LOGOUT':
+    return {};
+   default:
+    return state;
+ }
 }

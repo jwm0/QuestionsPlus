@@ -22,7 +22,8 @@ store.subscribe(() => {
 // ==== DEMO ONLY ====
 // Check if a user database exists, otherwise create a fake one
 if ($.isEmptyObject(QuestionAPI.getUsers())) {
-  store.dispatch(actions.createUserDatabase(6));
+  store.dispatch(actions.createUserDatabase());
+  store.dispatch(actions.addUser('Admin', 'https://scontent.fwaw3-1.fna.fbcdn.net/v/t1.0-9/11216827_513406205492333_3223951621385475176_n.jpg?oh=0b19aa204208c69a737215740d3def54&oe=5A70FF38', 1))
   // save to local storage
   QuestionAPI.createUserDatabase(store.getState().users);
 }
@@ -33,6 +34,7 @@ var comments = QuestionAPI.getComments();
 var initialQuestions = QuestionAPI.getQuestions();
 
 // load question and users from local storage
+store.dispatch(actions.login('1'));
 store.dispatch(actions.addUsers(users));
 store.dispatch(actions.addComments(comments));
 store.dispatch(actions.addQuestions(initialQuestions));

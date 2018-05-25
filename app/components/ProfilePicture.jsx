@@ -1,11 +1,7 @@
 import React from 'react';
 import * as actions from 'actions';
 import {connect} from 'react-redux';
-import blankImage from '../img/blank.png'
-
-/*
-NEEDS PROPS REVAMP, SHOULD ONLY TAKE USER ID AS PROP AND FETCH DATA FROM DATABASE
-*/
+import blankImage from '../img/blank.png';
 
 export class ProfilePicture extends React.Component {
   constructor () {
